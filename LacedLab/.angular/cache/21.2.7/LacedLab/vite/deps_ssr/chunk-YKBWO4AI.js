@@ -1,3 +1,4 @@
+import { createRequire } from 'module';const require = createRequire(import.meta.url);
 import {
   APP_BOOTSTRAP_LISTENER,
   APP_ID,
@@ -33,7 +34,6 @@ import {
   NgModule,
   NgModuleRef$1,
   NgZone,
-  Observable,
   Optional,
   PLATFORM_ID,
   PLATFORM_INITIALIZER,
@@ -45,7 +45,6 @@ import {
   ResourceImpl,
   RuntimeError,
   SecurityContext,
-  Subject,
   TESTABILITY,
   TESTABILITY_GETTER,
   TemplateRef,
@@ -56,9 +55,6 @@ import {
   ViewContainerRef,
   ViewEncapsulation,
   XSS_SECURITY_URL,
-  __objRest,
-  __spreadProps,
-  __spreadValues,
   _global,
   _sanitizeHtml,
   _sanitizeUrl,
@@ -72,12 +68,9 @@ import {
   bypassSanitizationTrustStyle,
   bypassSanitizationTrustUrl,
   computed,
-  concatMap,
   createNgModule,
   createPlatformFactory,
   encapsulateResourceError,
-  filter,
-  finalize,
   findLocaleData,
   formatRuntimeError,
   forwardRef,
@@ -90,18 +83,17 @@ import {
   linkedSignal,
   makeEnvironmentProviders,
   makeStateKey,
-  map,
   numberAttribute,
-  of,
   performanceMarkFeature,
   platformCore,
   provideStabilityDebugging,
+  require_cjs,
+  require_operators,
   runInInjectionContext,
   setClassMetadata,
   setDocument,
   signal,
   stringify,
-  switchMap,
   truncateMiddle,
   untracked,
   unwrapSafeValue,
@@ -120,7 +112,16 @@ import {
   ɵɵinject,
   ɵɵinjectAttribute,
   ɵɵstyleProp
-} from "./chunk-BDPTHPGI.js";
+} from "./chunk-IBC4FN27.js";
+import {
+  __objRest,
+  __spreadProps,
+  __spreadValues,
+  __toESM
+} from "./chunk-6DU2HRTW.js";
+
+// node_modules/@angular/common/fesm2022/_location-chunk.mjs
+var import_rxjs = __toESM(require_cjs(), 1);
 
 // node_modules/@angular/common/fesm2022/_platform_location-chunk.mjs
 var _DOM = null;
@@ -414,7 +415,7 @@ function extractUrlPath(url) {
   return url.slice(0, pathEnd);
 }
 var Location = class _Location {
-  _subject = new Subject();
+  _subject = new import_rxjs.Subject();
   _basePath;
   _locationStrategy;
   _urlChangeListeners = [];
@@ -3387,6 +3388,7 @@ var XhrFactory = class {
 };
 
 // node_modules/@angular/common/fesm2022/common.mjs
+var import_rxjs2 = __toESM(require_cjs(), 1);
 var NavigationAdapterForLocation = class _NavigationAdapterForLocation extends Location {
   navigation = inject(PlatformNavigation);
   destroyRef = inject(DestroyRef);
@@ -3447,84 +3449,28 @@ var NavigationAdapterForLocation = class _NavigationAdapterForLocation extends L
   }], () => [], null);
 })();
 var PLATFORM_BROWSER_ID = "browser";
-var VERSION = new Version("21.2.8");
+var PLATFORM_SERVER_ID = "server";
+var VERSION = new Version("21.2.9");
 var ViewportScroller = class _ViewportScroller {
   static ɵprov = ɵɵdefineInjectable({
     token: _ViewportScroller,
     providedIn: "root",
-    factory: () => false ? new NullViewportScroller() : new BrowserViewportScroller(inject(DOCUMENT), window)
+    factory: () => true ? new NullViewportScroller() : new BrowserViewportScroller(inject(DOCUMENT), window)
   });
 };
-var BrowserViewportScroller = class {
-  document;
-  window;
-  offset = () => [0, 0];
-  constructor(document2, window2) {
-    this.document = document2;
-    this.window = window2;
-  }
+var NullViewportScroller = class {
   setOffset(offset) {
-    if (Array.isArray(offset)) {
-      this.offset = () => offset;
-    } else {
-      this.offset = offset;
-    }
   }
   getScrollPosition() {
-    return [this.window.scrollX, this.window.scrollY];
+    return [0, 0];
   }
-  scrollToPosition(position, options) {
-    this.window.scrollTo(__spreadProps(__spreadValues({}, options), {
-      left: position[0],
-      top: position[1]
-    }));
+  scrollToPosition(position) {
   }
-  scrollToAnchor(target, options) {
-    const elSelected = findAnchorFromDocument(this.document, target);
-    if (elSelected) {
-      this.scrollToElement(elSelected, options);
-      elSelected.focus();
-    }
+  scrollToAnchor(anchor) {
   }
   setHistoryScrollRestoration(scrollRestoration) {
-    try {
-      this.window.history.scrollRestoration = scrollRestoration;
-    } catch {
-      console.warn(formatRuntimeError(2400, ngDevMode && "Failed to set `window.history.scrollRestoration`. This may occur when:\n• The script is running inside a sandboxed iframe\n• The window is partially navigated or inactive\n• The script is executed in an untrusted or special context (e.g., test runners, browser extensions, or content previews)\nScroll position may not be preserved across navigation."));
-    }
-  }
-  scrollToElement(el, options) {
-    const rect = el.getBoundingClientRect();
-    const left = rect.left + this.window.pageXOffset;
-    const top = rect.top + this.window.pageYOffset;
-    const offset = this.offset();
-    this.window.scrollTo(__spreadProps(__spreadValues({}, options), {
-      left: left - offset[0],
-      top: top - offset[1]
-    }));
   }
 };
-function findAnchorFromDocument(document2, target) {
-  const documentResult = document2.getElementById(target) || document2.getElementsByName(target)[0];
-  if (documentResult) {
-    return documentResult;
-  }
-  if (typeof document2.createTreeWalker === "function" && document2.body && typeof document2.body.attachShadow === "function") {
-    const treeWalker = document2.createTreeWalker(document2.body, NodeFilter.SHOW_ELEMENT);
-    let currentNode = treeWalker.currentNode;
-    while (currentNode) {
-      const shadowRoot = currentNode.shadowRoot;
-      if (shadowRoot) {
-        const result = shadowRoot.getElementById(target) || shadowRoot.querySelector(`[name="${target}"]`);
-        if (result) {
-          return result;
-        }
-      }
-      currentNode = treeWalker.nextNode();
-    }
-  }
-  return null;
-}
 var PLACEHOLDER_QUALITY = "20";
 function getUrl(src, win) {
   return isAbsoluteUrl(src) ? new URL(src) : new URL(src, win.location.href);
@@ -3719,7 +3665,7 @@ var LCPImageObserver = class _LCPImageObserver {
   observer = null;
   constructor() {
     assertDevMode("LCP checker");
-    if (typeof PerformanceObserver !== "undefined") {
+    if (false) {
       this.observer = this.initPerformanceObserver();
     }
   }
@@ -3861,7 +3807,7 @@ var PreconnectLinkChecker = class _PreconnectLinkChecker {
     }
   }
   assertPreconnect(rewrittenSrc, originalNgSrc) {
-    if (false) return;
+    if (true) return;
     const imgUrl = getUrl(rewrittenSrc, this.window);
     if (this.blocklist.has(imgUrl.hostname) || this.alreadySeen.has(imgUrl.origin)) return;
     this.alreadySeen.add(imgUrl.origin);
@@ -3964,12 +3910,9 @@ var ASPECT_RATIO_TOLERANCE = 0.1;
 var OVERSIZED_IMAGE_TOLERANCE = 1e3;
 var FIXED_SRCSET_WIDTH_LIMIT = 1920;
 var FIXED_SRCSET_HEIGHT_LIMIT = 1080;
-var PLACEHOLDER_DIMENSION_LIMIT = 1e3;
 var DATA_URL_WARN_LIMIT = 4e3;
 var DATA_URL_ERROR_LIMIT = 1e4;
 var BUILT_IN_LOADERS = [imgixLoaderInfo, imageKitLoaderInfo, cloudinaryLoaderInfo, netlifyLoaderInfo];
-var PRIORITY_COUNT_THRESHOLD = 10;
-var IMGS_WITH_PRIORITY_ATTR_COUNT = 0;
 var NgOptimizedImage = class _NgOptimizedImage {
   imageLoader = inject(IMAGE_LOADER);
   config = processConfig(inject(IMAGE_CONFIG));
@@ -4047,7 +3990,7 @@ var NgOptimizedImage = class _NgOptimizedImage {
       if (this.priority) {
         const checker = this.injector.get(PreconnectLinkChecker);
         checker.assertPreconnect(this.getRewrittenSrc(), this.ngSrc);
-        if (true) {
+        if (false) {
           const applicationRef = this.injector.get(ApplicationRef);
           assetPriorityCountBelowThreshold(applicationRef);
         }
@@ -4081,7 +4024,7 @@ var NgOptimizedImage = class _NgOptimizedImage {
         this.setHostAttribute("sizes", "auto, 100vw");
       }
     }
-    if (false) {
+    if (this.priority) {
       const preloadLinkCreator = this.injector.get(PreloadLinkCreator);
       preloadLinkCreator.createPreloadLinkTag(this.renderer, this.getRewrittenSrc(), rewrittenSrcset, this.sizes);
     }
@@ -4103,7 +4046,7 @@ var NgOptimizedImage = class _NgOptimizedImage {
         }
       }
     }
-    if (ngDevMode && changes["placeholder"]?.currentValue && true && true) {
+    if (ngDevMode && changes["placeholder"]?.currentValue && true && false) {
       assertPlaceholderDimensions(this, this.imgElement);
     }
   }
@@ -4623,25 +4566,6 @@ function assertNoLoaderParamsWithoutLoader(dir, imageLoader) {
     console.warn(formatRuntimeError(2963, `${imgDirectiveDetails(dir.ngSrc)} the \`loaderParams\` attribute is present but no image loader is configured (i.e. the default one is being used), which means that the loaderParams data will not be consumed and will not affect the URL. To fix this, provide a custom loader or remove the \`loaderParams\` attribute from the image.`));
   }
 }
-async function assetPriorityCountBelowThreshold(appRef) {
-  if (IMGS_WITH_PRIORITY_ATTR_COUNT === 0) {
-    IMGS_WITH_PRIORITY_ATTR_COUNT++;
-    await appRef.whenStable();
-    if (IMGS_WITH_PRIORITY_ATTR_COUNT > PRIORITY_COUNT_THRESHOLD) {
-      console.warn(formatRuntimeError(2966, `NgOptimizedImage: The "priority" attribute is set to true more than ${PRIORITY_COUNT_THRESHOLD} times (${IMGS_WITH_PRIORITY_ATTR_COUNT} times). Marking too many images as "high" priority can hurt your application's LCP (https://web.dev/lcp). "Priority" should only be set on the image expected to be the page's LCP element.`));
-    }
-  } else {
-    IMGS_WITH_PRIORITY_ATTR_COUNT++;
-  }
-}
-function assertPlaceholderDimensions(dir, imgElement) {
-  const computedStyle = window.getComputedStyle(imgElement);
-  let renderedWidth = parseFloat(computedStyle.getPropertyValue("width"));
-  let renderedHeight = parseFloat(computedStyle.getPropertyValue("height"));
-  if (renderedWidth > PLACEHOLDER_DIMENSION_LIMIT || renderedHeight > PLACEHOLDER_DIMENSION_LIMIT) {
-    console.warn(formatRuntimeError(2967, `${imgDirectiveDetails(dir.ngSrc)} it uses a placeholder image, but at least one of the dimensions attribute (height or width) exceeds the limit of ${PLACEHOLDER_DIMENSION_LIMIT}px. To fix this, use a smaller image as a placeholder.`));
-  }
-}
 function callOnLoadIfImageIsLoaded(img, callback) {
   if (img.complete && img.naturalWidth) {
     callback();
@@ -4876,7 +4800,7 @@ var SharedStylesHost = class _SharedStylesHost {
     if (this.nonce) {
       element.setAttribute("nonce", this.nonce);
     }
-    if (false) {
+    if (true) {
       element.setAttribute(APP_ID_ATTRIBUTE_NAME, this.appId);
     }
     return host.appendChild(element);
@@ -4993,7 +4917,7 @@ var DomRendererFactory2 = class _DomRendererFactory2 {
     if (!element || !type) {
       return this.defaultRenderer;
     }
-    if (false) {
+    if (type.encapsulation === ViewEncapsulation.ShadowDom || type.encapsulation === ViewEncapsulation.ExperimentalIsolatedShadowDom) {
       type = __spreadProps(__spreadValues({}, type), {
         encapsulation: ViewEncapsulation.Emulated
       });
@@ -5220,7 +5144,7 @@ var DefaultDomRenderer2 = class {
       if (event === "__ngUnwrap__") {
         return eventHandler;
       }
-      const allowDefaultBehavior = false ? this.ngZone.runGuarded(() => eventHandler(event)) : eventHandler(event);
+      const allowDefaultBehavior = true ? this.ngZone.runGuarded(() => eventHandler(event)) : eventHandler(event);
       if (allowDefaultBehavior === false) {
         event.preventDefault();
       }
@@ -5714,6 +5638,8 @@ var BrowserModule = class _BrowserModule {
 })();
 
 // node_modules/@angular/common/fesm2022/_module-chunk.mjs
+var import_operators = __toESM(require_operators(), 1);
+var import_rxjs3 = __toESM(require_cjs(), 1);
 var HttpHeaders = class _HttpHeaders {
   headers;
   normalizedNames = /* @__PURE__ */ new Map();
@@ -6454,7 +6380,7 @@ var FetchBackend = class _FetchBackend {
   ngZone = inject(NgZone);
   destroyRef = inject(DestroyRef);
   handle(request) {
-    return new Observable((observer) => {
+    return new import_rxjs3.Observable((observer) => {
       const aborter = new AbortController();
       this.doRequest(request, aborter.signal, observer).then(noop, (error) => observer.error(new HttpErrorResponse({
         error
@@ -6745,9 +6671,9 @@ var HttpXhrBackend = class _HttpXhrBackend {
     }
     ngDevMode && validateXhrCompatibility(req);
     const xhrFactory = this.xhrFactory;
-    const source = false ? from(xhrFactory.ɵloadImpl()) : of(null);
-    return source.pipe(switchMap(() => {
-      return new Observable((observer) => {
+    const source = xhrFactory.ɵloadImpl ? (0, import_rxjs3.from)(xhrFactory.ɵloadImpl()) : (0, import_rxjs3.of)(null);
+    return source.pipe((0, import_operators.switchMap)(() => {
+      return new import_rxjs3.Observable((observer) => {
         const xhr = xhrFactory.build();
         xhr.open(req.method, req.urlWithParams);
         if (req.withCredentials) {
@@ -6975,7 +6901,7 @@ function legacyInterceptorFnFactory() {
     const contributeToStability = inject(REQUESTS_CONTRIBUTE_TO_STABILITY);
     if (contributeToStability) {
       const removeTask = pendingTasks.add();
-      return chain(req, handler).pipe(finalize(removeTask));
+      return chain(req, handler).pipe((0, import_operators.finalize)(removeTask));
     } else {
       return chain(req, handler);
     }
@@ -7020,7 +6946,7 @@ var HttpInterceptorHandler = class _HttpInterceptorHandler {
     this.injector = injector;
     if ((typeof ngDevMode === "undefined" || ngDevMode) && !fetchBackendWarningDisplayed) {
       const isTestingBackend = this.backend.isTestingBackend;
-      if (false) {
+      if (!(this.backend instanceof FetchBackend) && !isTestingBackend) {
         fetchBackendWarningDisplayed = true;
         injector.get(Console).warn(formatRuntimeError(2801, "Angular detected that `HttpClient` is not configured to use `fetch` APIs. It's strongly recommended to enable `fetch` for applications that use Server-Side Rendering for better performance and compatibility. To enable `fetch`, add the `withFetch()` to the `provideHttpClient()` call at the root of the application."));
       }
@@ -7033,7 +6959,7 @@ var HttpInterceptorHandler = class _HttpInterceptorHandler {
     }
     if (this.contributeToStability) {
       const removeTask = this.pendingTasks.add();
-      return this.chain(initialRequest, (downstreamRequest) => this.backend.handle(downstreamRequest)).pipe(finalize(removeTask));
+      return this.chain(initialRequest, (downstreamRequest) => this.backend.handle(downstreamRequest)).pipe((0, import_operators.finalize)(removeTask));
     } else {
       return this.chain(initialRequest, (downstreamRequest) => this.backend.handle(downstreamRequest));
     }
@@ -7155,30 +7081,30 @@ var HttpClient = class _HttpClient {
         timeout: options.timeout
       });
     }
-    const events$ = of(req).pipe(concatMap((req2) => this.handler.handle(req2)));
+    const events$ = (0, import_rxjs3.of)(req).pipe((0, import_operators.concatMap)((req2) => this.handler.handle(req2)));
     if (first instanceof HttpRequest || options.observe === "events") {
       return events$;
     }
-    const res$ = events$.pipe(filter((event) => event instanceof HttpResponse));
+    const res$ = events$.pipe((0, import_operators.filter)((event) => event instanceof HttpResponse));
     switch (options.observe || "body") {
       case "body":
         switch (req.responseType) {
           case "arraybuffer":
-            return res$.pipe(map((res) => {
+            return res$.pipe((0, import_operators.map)((res) => {
               if (res.body !== null && !(res.body instanceof ArrayBuffer)) {
                 throw new RuntimeError(2806, ngDevMode && "Response is not an ArrayBuffer.");
               }
               return res.body;
             }));
           case "blob":
-            return res$.pipe(map((res) => {
+            return res$.pipe((0, import_operators.map)((res) => {
               if (res.body !== null && !(res.body instanceof Blob)) {
                 throw new RuntimeError(2807, ngDevMode && "Response is not a Blob.");
               }
               return res.body;
             }));
           case "text":
-            return res$.pipe(map((res) => {
+            return res$.pipe((0, import_operators.map)((res) => {
               if (res.body !== null && typeof res.body !== "string") {
                 throw new RuntimeError(2808, ngDevMode && "Response is not a string.");
               }
@@ -7186,7 +7112,7 @@ var HttpClient = class _HttpClient {
             }));
           case "json":
           default:
-            return res$.pipe(map((res) => res.body));
+            return res$.pipe((0, import_operators.map)((res) => res.body));
         }
       case "response":
         return res$;
@@ -7259,6 +7185,9 @@ var JsonpClientBackend = class _JsonpClientBackend {
   callbackMap;
   document;
   resolvedPromise = Promise.resolve();
+  nonce = inject(CSP_NONCE, {
+    optional: true
+  });
   constructor(callbackMap, document2) {
     this.callbackMap = callbackMap;
     this.document = document2;
@@ -7275,11 +7204,14 @@ var JsonpClientBackend = class _JsonpClientBackend {
     if (req.headers.keys().length > 0) {
       throw new RuntimeError(2812, ngDevMode && JSONP_ERR_HEADERS_NOT_SUPPORTED);
     }
-    return new Observable((observer) => {
+    return new import_rxjs3.Observable((observer) => {
       const callback = this.nextCallback();
       const url = req.urlWithParams.replace(/=JSONP_CALLBACK(&|$)/, `=${callback}$1`);
       const node = this.document.createElement("script");
       node.src = url;
+      if (this.nonce) {
+        node.setAttribute("nonce", this.nonce);
+      }
       let body = null;
       let finished = false;
       this.callbackMap[callback] = (data) => {
@@ -7409,7 +7341,7 @@ var HttpXsrfCookieExtractor = class _HttpXsrfCookieExtractor {
   lastToken = null;
   parseCount = 0;
   getToken() {
-    if (false) {
+    if (true) {
       return null;
     }
     const cookieString = this.doc.cookie || "";
@@ -7695,6 +7627,8 @@ var HttpClientJsonpModule = class _HttpClientJsonpModule {
 })();
 
 // node_modules/@angular/common/fesm2022/http.mjs
+var import_rxjs4 = __toESM(require_cjs(), 1);
+var import_operators2 = __toESM(require_operators(), 1);
 var HTTP_TRANSFER_CACHE_ORIGIN_MAP = new InjectionToken(typeof ngDevMode !== "undefined" && ngDevMode ? "HTTP_TRANSFER_CACHE_ORIGIN_MAP" : "");
 var BODY = "b";
 var HEADERS = "h";
@@ -7736,10 +7670,10 @@ function retrieveStateFromCache(req, options, transferState, originMap) {
   if (!shouldCacheRequest(req, options)) {
     return null;
   }
-  if (originMap) {
+  if (false) {
     throw new RuntimeError(2803, ngDevMode && "Angular detected that the `HTTP_TRANSFER_CACHE_ORIGIN_MAP` token is configured and present in the client side code. Please ensure that this token is only provided in the server code of the application.");
   }
-  const requestUrl = false ? mapRequestOriginUrl(req.url, originMap) : req.url;
+  const requestUrl = originMap ? mapRequestOriginUrl(req.url, originMap) : req.url;
   const storeKey = makeCacheKey(req, requestUrl);
   const response = transferState.get(storeKey, null);
   const headersToInclude = getHeadersToInclude(options, requestOptions);
@@ -7783,20 +7717,20 @@ function transferCacheInterceptorFn(req, next) {
   });
   const cachedResponse = retrieveStateFromCache(req, options, transferState, originMap);
   if (cachedResponse) {
-    return of(cachedResponse);
+    return (0, import_rxjs4.of)(cachedResponse);
   }
   const {
     transferCache: requestOptions
   } = req;
   const headersToInclude = getHeadersToInclude(options, requestOptions);
-  const requestUrl = false ? mapRequestOriginUrl(req.url, originMap) : req.url;
+  const requestUrl = originMap ? mapRequestOriginUrl(req.url, originMap) : req.url;
   const storeKey = makeCacheKey(req, requestUrl);
   if (!shouldCacheRequest(req, options)) {
     return next(req);
   }
   const event$ = next(req);
-  if (false) {
-    return event$.pipe(tap((event) => {
+  if (true) {
+    return event$.pipe((0, import_operators2.tap)((event) => {
       if (event instanceof HttpResponse) {
         transferState.set(storeKey, {
           [BODY]: req.responseType === "arraybuffer" || req.responseType === "blob" ? toBase64(event.body) : event.body,
@@ -7813,6 +7747,19 @@ function transferCacheInterceptorFn(req, next) {
 }
 function hasAuthHeaders(req) {
   return req.headers.has("authorization") || req.headers.has("proxy-authorization");
+}
+function getFilteredHeaders(headers, includeHeaders) {
+  if (!includeHeaders) {
+    return {};
+  }
+  const headersMap = {};
+  for (const key of includeHeaders) {
+    const values = headers.getAll(key);
+    if (values !== null) {
+      headersMap[key] = values;
+    }
+  }
+  return headersMap;
 }
 function sortAndConcatParams(params) {
   return [...params.keys()].sort().map((k) => `${k}=${params.getAll(k)}`).join("&");
@@ -7841,6 +7788,16 @@ function generateHash(value) {
   }
   hash += 2147483647 + 1;
   return hash.toString();
+}
+function toBase64(buffer) {
+  const bytes = new Uint8Array(buffer);
+  const CHUNK_SIZE = 32768;
+  let binaryString = "";
+  for (let i = 0; i < bytes.length; i += CHUNK_SIZE) {
+    const chunk = bytes.subarray(i, i + CHUNK_SIZE);
+    binaryString += String.fromCharCode.apply(null, chunk);
+  }
+  return btoa(binaryString);
 }
 function fromBase64(base64) {
   const binary = atob(base64);
@@ -7894,6 +7851,22 @@ function appendMissingHeadersDetection(url, headers, headersToInclude) {
       };
     }
   });
+}
+function mapRequestOriginUrl(url, originMap) {
+  const origin = new URL(url, "resolve://").origin;
+  const mappedOrigin = originMap[origin];
+  if (!mappedOrigin) {
+    return url;
+  }
+  if (typeof ngDevMode === "undefined" || ngDevMode) {
+    verifyMappedOrigin(mappedOrigin);
+  }
+  return url.replace(origin, mappedOrigin);
+}
+function verifyMappedOrigin(url) {
+  if (new URL(url, "resolve://").pathname !== "/") {
+    throw new RuntimeError(2804, `Angular detected a URL with a path segment in the value provided for the \`HTTP_TRANSFER_CACHE_ORIGIN_MAP\` token: ${url}. The map should only contain origins without any other segments.`);
+  }
 }
 var httpResource = (() => {
   const jsonFn = makeHttpResourceFn("json");
@@ -8649,20 +8622,25 @@ function provideClientHydration(...features) {
   }
   return makeEnvironmentProviders([typeof ngDevMode !== "undefined" && ngDevMode ? provideEnabledBlockingInitialNavigationDetector() : [], typeof ngDevMode !== "undefined" && ngDevMode ? provideStabilityDebugging() : [], withDomHydration(), featuresKind.has(HydrationFeatureKind.NoHttpTransferCache) || hasHttpTransferCacheOptions ? [] : withHttpTransferCache({}), providers]);
 }
-var VERSION2 = new Version("21.2.8");
+var VERSION2 = new Version("21.2.9");
 
 export {
   getDOM,
+  setRootDomAdapter,
   PlatformLocation,
   LOCATION_INITIALIZED,
   LocationStrategy,
+  APP_BASE_HREF,
   PathLocationStrategy,
   Location,
   HashLocationStrategy,
   PRECOMMIT_HANDLER_SUPPORTED,
   PlatformNavigation,
+  XhrFactory,
   NavigationAdapterForLocation,
+  PLATFORM_SERVER_ID,
   ViewportScroller,
+  NullViewportScroller,
   EventManagerPlugin,
   DomEventsPlugin,
   EVENT_MANAGER_PLUGINS,
@@ -8678,6 +8656,7 @@ export {
   provideProtractorTestingSupport,
   platformBrowser,
   BrowserModule,
+  HTTP_ROOT_INTERCEPTOR_FNS,
   Meta,
   Title,
   enableDebugTools,
@@ -8699,4 +8678,4 @@ export {
   provideClientHydration,
   VERSION2 as VERSION
 };
-//# sourceMappingURL=chunk-LFURPANQ.js.map
+//# sourceMappingURL=chunk-YKBWO4AI.js.map

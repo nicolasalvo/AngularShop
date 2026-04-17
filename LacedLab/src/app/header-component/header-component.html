@@ -1,1 +1,43 @@
-<header></header>
+<header class="sticky top-0 z-50 w-full border-b border-white/10 bg-[#0D2944]/75 backdrop-blur-md">
+  <div class="container mx-auto flex h-18 items-center justify-between px-4 sm:px-6">
+    <div class="flex items-center gap-2">
+      <div class="h-18 w-full rounded-lg flex items-center justify-center">
+        <img src="/Files/Logo%20LacedLab.png" alt="Logo LacedLab" class="h-full w-full object-contain">
+      </div>
+    </div>
+
+    <nav class="hidden md:block">
+      <ul class="flex items-center gap-8">
+        <li>
+          <a href="#" class="text-md font-medium text-white transition-colors hover:text-[#DA6719]">Inicio</a>
+        </li>
+        <li>
+          <a href="#" class="text-md font-medium text-white transition-colors hover:text-[#DA6719]">Catálogo</a>
+        </li>
+        <li>
+          <a href="#" class="text-md font-medium text-white transition-colors hover:text-[#DA6719]">Contacto</a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="flex items-center gap-4">
+      <button class="relative p-2 text-gray-400 hover:text-white transition-colors" aria-label="Carrito">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.1-5.43H5.42"/>
+        </svg>
+        <span class="absolute right-0 top-0 flex h-4 w-4 items-center justify-center rounded-full bg-[#DA6719] text-[10px] font-bold text-white">
+          0
+        </span>
+      </button>
+
+      <div class="h-6 w-px bg-white/10 hidden sm:block"></div>
+
+      <a
+        href="#"
+        class="hidden sm:inline-flex items-center justify-center rounded-full bg-white px-6 py-2 text-sm font-semibold text-black transition-all hover:bg-[#DA6719] active:scale-95"
+      >
+        Registrarse
+      </a>
+    </div>
+  </div>
+</header>

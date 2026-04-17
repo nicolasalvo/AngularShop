@@ -1,19 +1,48 @@
 {
-  "name": "sneakers-ecommerce-backend",
+  "name": "laced-lab",
   "version": "1.0.0",
-  "description": "API REST para e-commerce de zapatillas",
+  "description": "E-commerce de zapatillas con Angular y Express",
   "type": "module",
-  "main": "src/app.js",
   "scripts": {
-    "dev": "node --watch src/app.js",
-    "start": "node src/app.js"
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test",
+    "dev:backend": "node --watch src/app.js",
+    "start:backend": "node src/app.js"
   },
   "dependencies": {
+    "@angular/animations": "^21.0.0",
+    "@angular/common": "^21.0.0",
+    "@angular/compiler": "^21.0.0",
+    "@angular/core": "^21.0.0",
+    "@angular/forms": "^21.0.0",
+    "@angular/platform-browser": "^21.0.0",
+    "@angular/platform-browser-dynamic": "^21.0.0",
+    "@angular/platform-server": "^21.0.0",
+    "@angular/router": "^21.0.0",
+    "@angular/ssr": "^21.0.0",
     "@supabase/supabase-js": "^2.49.4",
     "cloudinary": "^2.5.1",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
-    "multer": "^1.4.5-lts.1"
+    "multer": "^1.4.5-lts.1",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.3.0",
+    "zone.js": "~0.15.0"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^21.0.0",
+    "@angular/cli": "^21.0.0",
+    "@angular/compiler-cli": "^21.0.0",
+    "@tailwindcss/postcss": "^4.0.0",
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.0.0",
+    "autoprefixer": "^10.4.0",
+    "postcss": "^8.4.0",
+    "tailwindcss": "latest",
+    "typescript": ">=5.4"
   }
 }

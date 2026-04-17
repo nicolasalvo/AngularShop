@@ -10,7 +10,7 @@ import {
   PlatformNavigation,
   Title,
   ViewportScroller
-} from "./chunk-LFURPANQ.js";
+} from "./chunk-D7BVPTYN.js";
 import {
   APP_BOOTSTRAP_LISTENER,
   ApplicationRef,
@@ -117,7 +117,7 @@ import {
   ɵɵloadQuery,
   ɵɵqueryRefresh,
   ɵɵsanitizeUrlOrResourceUrl
-} from "./chunk-BDPTHPGI.js";
+} from "./chunk-CGXPGPGT.js";
 
 // node_modules/@angular/router/fesm2022/_router-chunk.mjs
 var PRIMARY_OUTLET = "primary";
@@ -546,7 +546,8 @@ var UrlParser = class {
     this.remaining = url;
   }
   parseRootSegment() {
-    this.consumeOptional("/");
+    while (this.consumeOptional("/")) {
+    }
     if (this.remaining === "" || this.peekStartsWith("?") || this.peekStartsWith("#")) {
       return new UrlSegmentGroup([], {});
     }
@@ -5957,7 +5958,7 @@ function mapToCanDeactivate(providers) {
 function mapToResolve(provider) {
   return (...params) => inject(provider).resolve(...params);
 }
-var VERSION = new Version("21.2.8");
+var VERSION = new Version("21.2.9");
 export {
   ActivatedRoute,
   ActivatedRouteSnapshot,

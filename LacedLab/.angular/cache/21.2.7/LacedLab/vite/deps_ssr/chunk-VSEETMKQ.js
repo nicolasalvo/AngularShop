@@ -11,7 +11,7 @@ import {
   PlatformNavigation,
   Title,
   ViewportScroller
-} from "./chunk-XJORBST6.js";
+} from "./chunk-YKBWO4AI.js";
 import {
   APP_BOOTSTRAP_LISTENER,
   ApplicationRef,
@@ -90,7 +90,7 @@ import {
   ɵɵloadQuery,
   ɵɵqueryRefresh,
   ɵɵsanitizeUrlOrResourceUrl
-} from "./chunk-PBOS4GDB.js";
+} from "./chunk-IBC4FN27.js";
 import {
   __spreadProps,
   __spreadValues,
@@ -526,7 +526,8 @@ var UrlParser = class {
     this.remaining = url;
   }
   parseRootSegment() {
-    this.consumeOptional("/");
+    while (this.consumeOptional("/")) {
+    }
     if (this.remaining === "" || this.peekStartsWith("?") || this.peekStartsWith("#")) {
       return new UrlSegmentGroup([], {});
     }
@@ -5941,7 +5942,7 @@ function mapToCanDeactivate(providers) {
 function mapToResolve(provider) {
   return (...params) => inject(provider).resolve(...params);
 }
-var VERSION = new Version("21.2.8");
+var VERSION = new Version("21.2.9");
 
 export {
   PRIMARY_OUTLET,
@@ -6026,4 +6027,4 @@ export {
   mapToResolve,
   VERSION
 };
-//# sourceMappingURL=chunk-7EF7M7ZL.js.map
+//# sourceMappingURL=chunk-VSEETMKQ.js.map

@@ -1,13 +1,10 @@
 import { createRequire } from 'module';const require = createRequire(import.meta.url);
 import {
-  index
-} from "./chunk-WC4PITUE.js";
-import {
   ActivatedRoute,
   ROUTES,
   Router,
   loadChildren
-} from "./chunk-7EF7M7ZL.js";
+} from "./chunk-VSEETMKQ.js";
 import {
   APP_BASE_HREF,
   BrowserDomAdapter,
@@ -22,7 +19,7 @@ import {
   XhrFactory,
   getDOM,
   setRootDomAdapter
-} from "./chunk-XJORBST6.js";
+} from "./chunk-YKBWO4AI.js";
 import {
   APP_ID,
   ApplicationRef,
@@ -68,7 +65,10 @@ import {
   ɵɵdefineInjector,
   ɵɵdefineNgModule,
   ɵɵinject
-} from "./chunk-PBOS4GDB.js";
+} from "./chunk-IBC4FN27.js";
+import {
+  index
+} from "./chunk-WC4PITUE.js";
 import {
   __objRest,
   __spreadProps,
@@ -399,24 +399,8 @@ var SERVER_HTTP_PROVIDERS = [{
   multi: true
 }];
 function parseUrl(urlStr, origin) {
-  const {
-    hostname,
-    protocol,
-    port,
-    pathname,
-    search,
-    hash,
-    href
-  } = new URL(urlStr, origin);
-  return {
-    hostname,
-    href,
-    protocol,
-    port,
-    pathname,
-    search,
-    hash
-  };
+  const urlToParse = urlStr.length === 0 || urlStr[0] === "/" ? origin + urlStr : urlStr;
+  return new URL(urlToParse);
 }
 var ServerPlatformLocation = class _ServerPlatformLocation {
   href = "/";
@@ -436,14 +420,22 @@ var ServerPlatformLocation = class _ServerPlatformLocation {
       return;
     }
     if (config.url) {
-      const url = parseUrl(config.url, this._doc.location.origin);
-      this.protocol = url.protocol;
-      this.hostname = url.hostname;
-      this.port = url.port;
-      this.pathname = url.pathname;
-      this.search = url.search;
-      this.hash = url.hash;
-      this.href = url.href;
+      const {
+        protocol,
+        hostname,
+        port,
+        pathname,
+        search,
+        hash,
+        href
+      } = parseUrl(config.url, this._doc.location.origin);
+      this.protocol = protocol;
+      this.hostname = hostname;
+      this.port = port;
+      this.pathname = pathname;
+      this.search = search;
+      this.hash = hash;
+      this.href = href;
     }
   }
   getBaseHrefFromDOM() {
@@ -475,12 +467,19 @@ var ServerPlatformLocation = class _ServerPlatformLocation {
   }
   replaceState(state, title, newUrl) {
     const oldUrl = this.url;
-    const parsedUrl = parseUrl(newUrl, this._doc.location.origin);
-    this.pathname = parsedUrl.pathname;
-    this.search = parsedUrl.search;
-    this.href = parsedUrl.href;
-    this.protocol = parsedUrl.protocol;
-    this.setHash(parsedUrl.hash, oldUrl);
+    const {
+      pathname,
+      search,
+      hash,
+      href,
+      protocol
+    } = parseUrl(newUrl, this._doc.location.origin);
+    const writableThis = this;
+    writableThis.pathname = pathname;
+    writableThis.search = search;
+    writableThis.href = href;
+    writableThis.protocol = protocol;
+    this.setHash(hash, oldUrl);
   }
   pushState(state, title, newUrl) {
     this.replaceState(state, title, newUrl);
@@ -852,7 +851,7 @@ async function renderApplication(bootstrap, options) {
     stopMeasuring(renderAppLabel);
   }
 }
-var VERSION = new Version("21.2.8");
+var VERSION = new Version("21.2.9");
 
 // node_modules/@angular/ssr/third_party/beasties/index.js
 function createNotImplementedError(name) {
@@ -12529,4 +12528,4 @@ export {
   AngularAppEngine,
   createRequestHandler
 };
-//# sourceMappingURL=chunk-7H5SIBE3.js.map
+//# sourceMappingURL=chunk-4MYZC5SP.js.map
