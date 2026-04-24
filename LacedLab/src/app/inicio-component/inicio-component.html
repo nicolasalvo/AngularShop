@@ -1,0 +1,54 @@
+<!-- Hero Section -->
+<div class="flex flex-col items-center justify-center min-h-200 text-center px-4 bg-[#0D2944]">
+  <h1 class="text-4xl md:text-6xl font-bold text-white mb-4">
+    Encuentra tu par <span class="text-[#DA6719]">perfecto</span>
+  </h1>
+  <p class="text-lg md:text-xl text-gray-300 mb-8 max-w-2xl">
+    Descubre las últimas tendencias en zapatillas y moda urbana
+  </p>
+  <button class="px-8 py-3 bg-[#DA6719] text-white font-semibold rounded-full hover:bg-[#c45a16] transition-colors">
+    Explorar Colección
+  </button>
+</div>
+
+<div class="w-full h-screen px-8 py-10">
+  <div class="flex justify-between items-center mb-6">
+    <h3 class="text-2xl font-bold">Productos Destacados</h3>
+    <h4 class="text-sm text-[#DA6719] cursor-pointer hover:underline">Ver todos los productos</h4>
+  </div>
+
+  @if (loading) {
+    <div class="grid grid-cols-4 gap-6">
+      @for (item of [1,2,3,4]; track item) {
+        <div class="animate-pulse bg-gray-200 rounded-xl h-80"></div>
+      }
+    </div>
+  }
+
+  @if (!loading) {
+    <div class="grid grid-cols-4 gap-6">
+      @for (product of products; track product.id) {
+        <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col">
+          <div class="bg-gray-100 h-48 flex items-center justify-center">
+            @if (product.image_url) {
+              <img [src]="product.image_url" [alt]="product.name" class="h-full w-full object-cover" />
+            } @else {
+              <span class="text-5xl">👟</span>
+            }
+          </div>
+          <div class="p-4 flex flex-col flex-1">
+            <p class="text-xs text-gray-400 uppercase tracking-wider">{{ product.brand }}</p>
+            <h4 class="font-semibold text-gray-900 mt-1 leading-tight">{{ product.name }}</h4>
+            <p class="text-sm text-gray-500 mt-1 line-clamp-2 flex-1">{{ product.description }}</p>
+            <div class="flex items-center justify-between mt-4">
+              <span class="text-lg font-bold text-[#DA6719]">{{ product.price | currency:'EUR':'symbol':'1.2-2' }}</span>
+              <button class="px-3 py-1 bg-[#0D2944] text-white text-sm rounded-full hover:bg-[#1a3d66] transition-colors">
+                Ver más
+              </button>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>

@@ -1,4 +1,4 @@
-<header class="sticky top-0 z-50 w-full border-b border-white/10 bg-[#0D2944]/75 backdrop-blur-md">
+<header class="sticky top-0 z-50 w-full border-b border-white/10 bg-[#4A5F73] backdrop-blur-md">
   <div class="container mx-auto flex h-18 items-center justify-between px-4 sm:px-6">
     <div class="flex items-center gap-2">
       <div class="h-18 w-full rounded-lg flex items-center justify-center">
@@ -9,13 +9,13 @@
     <nav class="hidden md:block">
       <ul class="flex items-center gap-8">
         <li>
-          <a href="#" class="text-md font-medium text-white transition-colors hover:text-[#DA6719]">Inicio</a>
+          <a routerLink="/inicio" class="text-md font-medium text-white transition-colors hover:text-[#DA6719]">Inicio</a>
         </li>
         <li>
-          <a href="#" class="text-md font-medium text-white transition-colors hover:text-[#DA6719]">Catálogo</a>
+          <a routerLink="/catalogo" class="text-md font-medium text-white transition-colors hover:text-[#DA6719]">Catálogo</a>
         </li>
         <li>
-          <a href="#" class="text-md font-medium text-white transition-colors hover:text-[#DA6719]">Contacto</a>
+          <a routerLink="/contacto" class="text-md font-medium text-white transition-colors hover:text-[#DA6719]">Contacto</a>
         </li>
       </ul>
     </nav>
@@ -33,7 +33,7 @@
       <div class="h-6 w-px bg-white/10 hidden sm:block"></div>
 
       <a
-        href="#"
+        routerLink="/register"
         class="hidden sm:inline-flex items-center justify-center rounded-full bg-white px-6 py-2 text-sm font-semibold text-black transition-all hover:bg-[#DA6719] active:scale-95"
       >
         Registrarse
