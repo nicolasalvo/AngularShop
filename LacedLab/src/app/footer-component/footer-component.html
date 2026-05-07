@@ -1,33 +1,47 @@
-<footer class="w-full border-t border-white/10 bg-[#0D2944]/75 backdrop-blur-md py-12">
-  <div class="container mx-auto px-4 sm:px-6">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+<footer class="w-full border-t border-white/5 bg-[#0a0a0a] py-20 relative overflow-hidden">
+  <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-[#FF5C00]/5 rounded-full blur-[120px] pointer-events-none"></div>
+  
+  <div class="container mx-auto px-6 relative z-10">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16">
       <!-- Brand -->
-      <div class="col-span-1 md:col-span-1">
-        <div class="flex items-center gap-2 mb-4">
-          <span class="text-xl font-bold tracking-tight text-white uppercase">Laced<span class="text-[#DA6719]">Lab</span></span>
+      <div class="lg:col-span-2">
+        <div class="flex items-center gap-2 mb-8">
+          <span class="text-3xl font-black tracking-tighter text-white uppercase font-outfit">LACED<span class="text-[#FF5C00]">LAB</span></span>
         </div>
-        <p class="text-sm text-gray-400 leading-relaxed">
-          Tu destino premium para las sneakers más exclusivas del mercado. Calidad, autenticidad y estilo en cada paso.
+        <p class="text-sm text-white/40 leading-relaxed max-w-sm font-medium">
+          El destino definitivo para coleccionistas y entusiastas de la cultura sneaker. Autenticidad certificada y envíos globales asegurados.
         </p>
       </div>
 
       <!-- Links 1 -->
       <div>
-        <h3 class="text-sm font-semibold text-white uppercase tracking-wider mb-4">Tienda</h3>
-        <ul class="space-y-2">
-          <li><a routerLink="/inicio" class="text-sm text-gray-400 hover:text-[#DA6719] transition-colors">Inicio</a></li>
-          <li><a routerLink="/catalogo" class="text-sm text-gray-400 hover:text-[#DA6719] transition-colors">Catálogo</a></li>
-          <li><a routerLink="/contacto" class="text-sm text-gray-400 hover:text-[#DA6719] transition-colors">Contacto</a></li>
+        <h3 class="text-xs font-black text-white uppercase tracking-[0.2em] mb-8 font-outfit">Explorar</h3>
+        <ul class="space-y-4">
+          <li><a routerLink="/inicio" class="text-xs font-bold text-white/30 hover:text-[#FF5C00] transition-colors uppercase tracking-widest relative group inline-block">Inicio<span class="absolute -bottom-1 left-0 w-0 h-[1px] bg-[#FF5C00] transition-all duration-300 group-hover:w-full"></span></a></li>
+          <li><a routerLink="/catalogo" class="text-xs font-bold text-white/30 hover:text-[#FF5C00] transition-colors uppercase tracking-widest relative group inline-block">Catálogo<span class="absolute -bottom-1 left-0 w-0 h-[1px] bg-[#FF5C00] transition-all duration-300 group-hover:w-full"></span></a></li>
+          <li><a routerLink="/pedidos" class="text-xs font-bold text-white/30 hover:text-[#FF5C00] transition-colors uppercase tracking-widest relative group inline-block">Mis Pedidos<span class="absolute -bottom-1 left-0 w-0 h-[1px] bg-[#FF5C00] transition-all duration-300 group-hover:w-full"></span></a></li>
+        </ul>
+      </div>
+
+      <!-- Soporte -->
+      <div>
+        <h3 class="text-xs font-black text-white uppercase tracking-[0.2em] mb-8 font-outfit">Ayuda</h3>
+        <ul class="space-y-4">
+          <li><a href="#" class="text-xs font-bold text-white/30 hover:text-[#FF5C00] transition-colors uppercase tracking-widest relative group inline-block">Autenticidad<span class="absolute -bottom-1 left-0 w-0 h-[1px] bg-[#FF5C00] transition-all duration-300 group-hover:w-full"></span></a></li>
+          <li><a href="#" class="text-xs font-bold text-white/30 hover:text-[#FF5C00] transition-colors uppercase tracking-widest relative group inline-block">Envíos<span class="absolute -bottom-1 left-0 w-0 h-[1px] bg-[#FF5C00] transition-all duration-300 group-hover:w-full"></span></a></li>
+          <li><a href="#" class="text-xs font-bold text-white/30 hover:text-[#FF5C00] transition-colors uppercase tracking-widest relative group inline-block">Contacto<span class="absolute -bottom-1 left-0 w-0 h-[1px] bg-[#FF5C00] transition-all duration-300 group-hover:w-full"></span></a></li>
         </ul>
       </div>
     </div>
-    <div class="border-t border-white/5 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-      <p class="text-xs text-gray-500 italic">
-        © 2026 LacedLab S.L. Todos los derechos reservados.
+
+    <div class="border-t border-white/5 mt-20 pt-10 flex flex-col md:flex-row justify-between items-center gap-6">
+      <p class="text-[10px] text-white/20 font-black uppercase tracking-widest">
+        © 2026 LACEDLAB S.L. — ELITE SNEAKER CULTURE.
       </p>
-      <div class="flex gap-6">
-        <a href="#" class="text-[10px] text-gray-600 hover:text-gray-400 uppercase tracking-tighter transition-colors">Privacidad</a>
-        <a href="#" class="text-[10px] text-gray-600 hover:text-gray-400 uppercase tracking-tighter transition-colors">Términos</a>
+      <div class="flex gap-8">
+        <a href="#" class="text-[10px] text-white/20 hover:text-white font-black uppercase tracking-[0.2em] transition-colors">Instagram</a>
+        <a href="#" class="text-[10px] text-white/20 hover:text-white font-black uppercase tracking-[0.2em] transition-colors">Twitter</a>
+        <a href="#" class="text-[10px] text-white/20 hover:text-white font-black uppercase tracking-[0.2em] transition-colors">Discord</a>
       </div>
     </div>
   </div>

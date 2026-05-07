@@ -1,43 +1,78 @@
-<header class="sticky top-0 z-50 w-full border-b border-white/10 bg-[#4A5F73] backdrop-blur-md">
-  <div class="container mx-auto flex h-18 items-center justify-between px-4 sm:px-6">
+<header class="sticky top-0 z-50 w-full border-b border-white/5 bg-[#0a0a0a]/80 backdrop-blur-xl animate-fade-in-up">
+  <div class="container mx-auto flex h-24 items-center justify-between px-6">
     <div class="flex items-center gap-2">
-      <div class="h-18 w-full rounded-lg flex items-center justify-center">
-        <img src="/Files/Logo%20LacedLab.png" alt="Logo LacedLab" class="h-full w-full object-contain">
-      </div>
+      <a class="h-10 flex items-center justify-center group" routerLink="/inicio">
+        <img src="/Files/Logo%20LacedLab.png" alt="Logo LacedLab" class="h-full w-auto object-contain brightness-0 invert opacity-90 group-hover:opacity-100 transition-all group-hover:scale-105 duration-500">
+      </a>
     </div>
 
-    <nav class="hidden md:block">
-      <ul class="flex items-center gap-8">
+    <nav class="hidden md:block flex-1">
+      <ul class="flex items-center justify-center gap-10">
         <li>
-          <a routerLink="/inicio" class="text-md font-medium text-white transition-colors hover:text-[#DA6719]">Inicio</a>
+          <a routerLink="/inicio" routerLinkActive="text-[#FF5C00]" class="relative text-[11px] font-black uppercase tracking-[0.2em] text-white/70 transition-colors hover:text-white group">
+            Inicio
+            <span class="absolute -bottom-2 left-0 w-0 h-0.5 bg-[#FF5C00] transition-all duration-300 group-hover:w-full"></span>
+          </a>
         </li>
         <li>
-          <a routerLink="/catalogo" class="text-md font-medium text-white transition-colors hover:text-[#DA6719]">Catálogo</a>
+          <a routerLink="/catalogo" routerLinkActive="text-[#FF5C00]" class="relative text-[11px] font-black uppercase tracking-[0.2em] text-white/70 transition-colors hover:text-white group">
+            Catálogo
+            <span class="absolute -bottom-2 left-0 w-0 h-0.5 bg-[#FF5C00] transition-all duration-300 group-hover:w-full"></span>
+          </a>
         </li>
-        <li>
-          <a routerLink="/contacto" class="text-md font-medium text-white transition-colors hover:text-[#DA6719]">Contacto</a>
-        </li>
+        @if (user()?.user_metadata) {
+          <li>
+            <a routerLink="/pedidos" routerLinkActive="text-[#FF5C00]" class="relative text-[11px] font-black uppercase tracking-[0.2em] text-white/70 transition-colors hover:text-white group">
+              Pedidos
+              <span class="absolute -bottom-2 left-0 w-0 h-0.5 bg-[#FF5C00] transition-all duration-300 group-hover:w-full"></span>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/admin-productos" routerLinkActive="text-[#FF5C00]" class="relative text-[11px] font-black uppercase tracking-[0.2em] text-white/70 transition-colors hover:text-white group">
+              Admin · Productos
+              <span class="absolute -bottom-2 left-0 w-0 h-0.5 bg-[#FF5C00] transition-all duration-300 group-hover:w-full"></span>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/admin-pedidos" routerLinkActive="text-[#FF5C00]" class="relative text-[11px] font-black uppercase tracking-[0.2em] text-white/70 transition-colors hover:text-white group">
+              Admin · Pedidos
+              <span class="absolute -bottom-2 left-0 w-0 h-0.5 bg-[#FF5C00] transition-all duration-300 group-hover:w-full"></span>
+            </a>
+          </li>
+        }
       </ul>
     </nav>
 
-    <div class="flex items-center gap-4">
-      <button class="relative p-2 text-gray-400 hover:text-white transition-colors" aria-label="Carrito">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.1-5.43H5.42"/>
+
+    <div class="flex items-center gap-8 w-48 justify-end flex-shrink-0">
+      <button class="relative p-2 text-white/70 hover:text-white transition-colors group" aria-label="Carrito">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:scale-110 transition-transform">
+          <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/>
         </svg>
-        <span class="absolute right-0 top-0 flex h-4 w-4 items-center justify-center rounded-full bg-[#DA6719] text-[10px] font-bold text-white">
+        <span class="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-[#FF5C00] text-[10px] font-black text-white shadow-lg shadow-[#FF5C00]/50 animate-pulse-slow">
           0
         </span>
       </button>
 
-      <div class="h-6 w-px bg-white/10 hidden sm:block"></div>
+      <div class="h-8 w-px bg-white/10 hidden sm:block"></div>
 
-      <a
-        routerLink="/register"
-        class="hidden sm:inline-flex items-center justify-center rounded-full bg-white px-6 py-2 text-sm font-semibold text-black transition-all hover:bg-[#DA6719] active:scale-95"
-      >
-        Registrarse
-      </a>
+      @if (!isLoggedIn()) {
+        <a
+          routerLink="/register"
+          class="hidden sm:inline-flex items-center justify-center rounded-full bg-white px-8 py-3 text-[10px] font-black uppercase tracking-widest text-black transition-all hover:bg-[#FF5C00] hover:text-white active:scale-95 shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_30px_rgba(255,92,0,0.3)]"
+        >
+          Unirse
+        </a>
+      } @else {
+        <div class="hidden sm:flex items-center gap-4">
+          <button
+            (click)="onSignOut()"
+            class="inline-flex items-center justify-center rounded-full bg-[#1a1a1a] border border-white/5 px-6 py-3 text-[10px] font-black uppercase tracking-widest text-white transition-all hover:border-red-500/50 hover:text-red-500 active:scale-95"
+          >
+            Salir
+          </button>
+        </div>
+      }
     </div>
   </div>
 </header>

@@ -4,47 +4,39 @@ import { FormsModule } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 
 @Component({
-  selector: 'app-register-component',
+  selector: 'app-login-component',
   standalone: true,
   imports: [RouterLink, FormsModule],
-  templateUrl: './register-component.html',
+  templateUrl: './login-component.html',
 })
-export class RegisterComponent {
-  name = '';
+export class LoginComponent {
   email = '';
   password = '';
-  confirmPassword = '';
   
   isLoading = false;
   errorMessage = '';
 
   constructor(private authService: AuthService, private router: Router) {}
 
-  async onRegister() {
+  async onLogin() {
     this.errorMessage = '';
 
-    if (!this.name || !this.email || !this.password || !this.confirmPassword) {
-      this.errorMessage = 'Por favor, rellena todos los campos.';
-      return;
-    }
-
-    if (this.password !== this.confirmPassword) {
-      this.errorMessage = 'Las contraseñas no coinciden.';
-      return;
-    }
-
-    if (this.password.length < 6) {
-      this.errorMessage = 'La contraseña debe tener al menos 6 caracteres.';
+    if (!this.email || !this.password) {
+      this.errorMessage = 'Por favor, ingresa tu correo y contraseña.';
       return;
     }
 
     this.isLoading = true;
 
     try {
-      const { data, error } = await this.authService.signUp(this.email, this.password, this.name);
+      const { data, error } = await this.authService.signIn(this.email, this.password);
       
       if (error) {
         this.errorMessage = error.message;
+        // Traducir error común
+        if (error.message.includes('Invalid login credentials')) {
+          this.errorMessage = 'Credenciales inválidas. Comprueba tu correo o contraseña.';
+        }
         return;
       }
 
@@ -52,7 +44,7 @@ export class RegisterComponent {
       this.router.navigate(['/inicio']);
       
     } catch (err: any) {
-      this.errorMessage = 'Ocurrió un error inesperado durante el registro.';
+      this.errorMessage = 'Ocurrió un error inesperado al iniciar sesión.';
       console.error(err);
     } finally {
       this.isLoading = false;

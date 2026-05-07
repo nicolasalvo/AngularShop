@@ -1,3 +1,74 @@
-/* You can add global styles to this file, and also import other style files */
-
 @import 'tailwindcss';
+
+:root {
+  --primary: #0a0a0a;
+  --secondary: #121212;
+  --accent: #FF5C00;
+  --surface: #1e1e1e;
+  --text-main: #f5f5f5;
+  --text-muted: #a0a0a0;
+}
+
+body {
+  background-color: var(--primary);
+  color: var(--text-main);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6, .font-outfit {
+  font-family: 'Outfit', system-ui, sans-serif;
+}
+
+/* Custom scrollbar for premium feel */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--primary);
+}
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
+/* Custom Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes pulse-slow {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: .7; transform: scale(1.05); }
+}
+
+@layer utilities {
+  .animate-fade-in-up {
+    animation: fadeInUp 0.8s ease-out forwards;
+  }
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  .animate-pulse-slow {
+    animation: pulse-slow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  .text-glow {
+    text-shadow: 0 0 20px rgba(255, 92, 0, 0.5);
+  }
+}

@@ -41,6 +41,22 @@ export class ProductService {
       return [];
     }
 
+    console.log('Products fetched:', data);
+    return data as Product[];
+  }
+
+  async getProducts(): Promise<Product[]> {
+    const { data, error } = await this.supabase
+      .from('products')
+      .select('*')
+      .eq('is_active', true)
+      .order('created_at', { ascending: false });
+
+    if (error) {
+      console.error('Error fetching all products:', error.message);
+      return [];
+    }
+
     return data as Product[];
   }
 }

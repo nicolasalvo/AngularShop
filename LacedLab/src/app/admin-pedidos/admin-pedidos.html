@@ -1,0 +1,56 @@
+<div class="bg-[#0a0a0a] min-h-screen px-8 py-20">
+  <div class="max-w-7xl mx-auto">
+    <!-- Header -->
+    <div class="mb-16 animate-fade-in-up">
+      <span class="inline-block px-4 py-1.5 mb-4 text-[10px] font-black uppercase tracking-[0.3em] text-[#FF5C00] bg-[#FF5C00]/10 rounded-full border border-[#FF5C00]/20">
+        Gestión de Ventas
+      </span>
+      <h1 class="text-6xl font-black text-white tracking-tighter uppercase font-outfit">Control de <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FF5C00] to-[#ff8c00]">Pedidos</span></h1>
+      <p class="text-white/40 mt-2 font-medium">Monitorización de transacciones y estados de envío en tiempo real.</p>
+    </div>
+
+    <!-- Table Container -->
+    <div class="bg-[#121212]/80 backdrop-blur-xl rounded-[40px] border border-white/5 overflow-hidden shadow-2xl animate-fade-in-up" style="animation-delay: 0.1s;">
+      <div class="overflow-x-auto">
+        <table class="w-full text-left">
+          <thead>
+            <tr class="border-b border-white/5 bg-white/[0.02]">
+              <th class="px-8 py-6 text-[10px] font-black text-white/30 uppercase tracking-widest">ID Pedido</th>
+              <th class="px-8 py-6 text-[10px] font-black text-white/30 uppercase tracking-widest">Fecha</th>
+              <th class="px-8 py-6 text-[10px] font-black text-white/30 uppercase tracking-widest">Cliente</th>
+              <th class="px-8 py-6 text-[10px] font-black text-white/30 uppercase tracking-widest">Total</th>
+              <th class="px-8 py-6 text-[10px] font-black text-white/30 uppercase tracking-widest">Estado</th>
+              <th class="px-8 py-6 text-[10px] font-black text-white/30 uppercase tracking-widest text-right">Acciones</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-white/5">
+            @for (order of orders; track order.id) {
+              <tr class="group hover:bg-white/[0.02] transition-colors">
+                <td class="px-8 py-6">
+                  <span class="text-sm font-bold text-white font-outfit">{{ order.id }}</span>
+                </td>
+                <td class="px-8 py-6 text-sm text-white/50">{{ order.date }}</td>
+                <td class="px-8 py-6 text-sm font-bold text-white">{{ order.customer }}</td>
+                <td class="px-8 py-6 text-sm font-black text-[#FF5C00] tracking-tighter">{{ order.total | currency:'EUR' }}</td>
+                <td class="px-8 py-6">
+                  <span [ngClass]="{
+                    'text-green-500 bg-green-500/10': order.status === 'Completado',
+                    'text-yellow-500 bg-yellow-500/10': order.status === 'Pendiente',
+                    'text-blue-500 bg-blue-500/10': order.status === 'Enviado'
+                  }" class="text-[9px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full border border-current/20">
+                    {{ order.status }}
+                  </span>
+                </td>
+                <td class="px-8 py-6 text-right">
+                  <button class="px-6 py-2 bg-white/5 text-white text-[9px] font-black uppercase tracking-widest rounded-full border border-white/5 hover:bg-white hover:text-black transition-all">
+                    Detalles
+                  </button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
