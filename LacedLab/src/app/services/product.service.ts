@@ -59,4 +59,19 @@ export class ProductService {
 
     return data as Product[];
   }
+
+  async getProductBySlug(slug: string): Promise<Product | null> {
+    const { data, error } = await this.supabase
+      .from('products')
+      .select('*')
+      .eq('slug', slug)
+      .single();
+
+    if (error) {
+      console.error('Error fetching product by slug:', error.message);
+      return null;
+    }
+
+    return data as Product;
+  }
 }

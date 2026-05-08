@@ -95,7 +95,7 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           @for (product of filteredProducts; track product.id; let i = $index) {
             <div class="group relative bg-[#121212] rounded-[32px] overflow-hidden border border-white/5 hover:border-[#FF5C00]/40 transition-all duration-500 hover:-translate-y-3 hover:shadow-2xl hover:shadow-[#FF5C00]/10 flex flex-col h-full animate-fade-in-up" [style.animation-delay]="i * 0.05 + 's'">
-              <div class="relative h-72 bg-gradient-to-b from-[#1a1a1a] to-[#121212] flex items-center justify-center overflow-hidden">
+              <div [routerLink]="['/producto', product.slug]" class="relative h-72 bg-gradient-to-b from-[#1a1a1a] to-[#121212] flex items-center justify-center overflow-hidden cursor-pointer">
                 @if (product.image_url) {
                   <img [src]="product.image_url" [alt]="product.name" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110 drop-shadow-2xl" />
                 } @else {
@@ -110,7 +110,7 @@
                   <span class="text-[9px] font-black text-white/30 uppercase tracking-[0.3em] border border-white/10 px-2 py-0.5 rounded-full">New</span>
                 </div>
                 
-                <h4 class="text-xl font-bold text-white leading-snug mb-6 group-hover:text-[#FF5C00] transition-colors font-outfit line-clamp-2">{{ product.name }}</h4>
+                <h4 [routerLink]="['/producto', product.slug]" class="text-xl font-bold text-white leading-snug mb-6 group-hover:text-[#FF5C00] transition-colors font-outfit line-clamp-2 cursor-pointer">{{ product.name }}</h4>
                 
                 <!-- Spacer para empujar el precio y el botón abajo -->
                 <div class="mt-auto pt-6 border-t border-white/5">

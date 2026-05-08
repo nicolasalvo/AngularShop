@@ -7,6 +7,7 @@ import { PedidosComponent } from './pedidos-component/pedidos-component';
 
 import { AdminProductos } from './admin-productos/admin-productos';
 import { AdminPedidos } from './admin-pedidos/admin-pedidos';
+import { ProductoDetalleComponent } from './producto-detalle/producto-detalle';
 
 export const routes: Routes = [
   { path: 'register', component: RegisterComponent },
@@ -16,5 +17,6 @@ export const routes: Routes = [
   { path: 'pedidos', component: PedidosComponent },
   { path: 'admin-productos', component: AdminProductos },
   { path: 'admin-pedidos', component: AdminPedidos },
+  { path: 'producto/:slug', component: ProductoDetalleComponent },
   { path: '', redirectTo: 'inicio', pathMatch: 'full' }
 ];
