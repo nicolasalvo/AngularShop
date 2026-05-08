@@ -1,12 +1,14 @@
 import { createRequire } from 'module';const require = createRequire(import.meta.url);
 import {
-  DOCUMENT,
   Injectable,
+  setClassMetadata
+} from "./chunk-XO3O5FQH.js";
+import {
+  DOCUMENT,
   InjectionToken,
   inject,
-  setClassMetadata,
   ɵɵdefineInjectable
-} from "./chunk-LDU5HW7I.js";
+} from "./chunk-WO4SMAQ5.js";
 
 // node_modules/@angular/common/fesm2022/_platform_location-chunk.mjs
 var _DOM = null;
@@ -149,4 +151,4 @@ export {
   parseCookieValue,
   XhrFactory
 };
-//# sourceMappingURL=chunk-DLFPOZS2.js.map
+//# sourceMappingURL=chunk-KOI6EMID.js.map

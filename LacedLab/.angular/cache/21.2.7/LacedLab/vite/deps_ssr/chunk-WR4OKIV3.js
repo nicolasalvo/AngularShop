@@ -1,23 +1,18 @@
 import { createRequire } from 'module';const require = createRequire(import.meta.url);
 import {
   PlatformLocation
-} from "./chunk-DLFPOZS2.js";
+} from "./chunk-KOI6EMID.js";
 import {
   Attribute,
   ChangeDetectorRef,
   DEFAULT_CURRENCY_CODE,
-  DOCUMENT,
-  DestroyRef,
   Directive,
   ElementRef,
   Host,
   IMAGE_CONFIG,
   IMAGE_CONFIG_DEFAULTS,
-  INTERNAL_APPLICATION_ERROR_HANDLER,
   Inject,
   Injectable,
-  InjectionToken,
-  Injector,
   Input,
   IterableDiffers,
   KeyValueDiffers,
@@ -25,22 +20,17 @@ import {
   LocaleDataIndex,
   NgModule,
   NgModuleRef$1,
-  NgZone,
   Optional,
   Pipe,
   Renderer2,
   RendererStyleFlags2,
-  RuntimeError,
   TemplateRef,
-  Version,
   ViewContainerRef,
   booleanAttribute,
   createNgModule,
   findLocaleData,
-  formatRuntimeError,
   getLocaleCurrencyCode,
   getLocalePluralCase,
-  inject,
   isPromise,
   isSignal,
   isSubscribable,
@@ -48,21 +38,33 @@ import {
   performanceMarkFeature,
   registerLocaleData,
   setClassMetadata,
-  stringify,
-  untracked,
   unwrapSafeValue,
   ɵɵNgOnChangesFeature,
   ɵɵdefineDirective,
-  ɵɵdefineInjectable,
-  ɵɵdefineInjector,
   ɵɵdefineNgModule,
   ɵɵdefinePipe,
   ɵɵdirectiveInject,
   ɵɵgetInheritedFactory,
-  ɵɵinject,
   ɵɵinjectAttribute,
   ɵɵstyleProp
-} from "./chunk-LDU5HW7I.js";
+} from "./chunk-XO3O5FQH.js";
+import {
+  DOCUMENT,
+  DestroyRef,
+  INTERNAL_APPLICATION_ERROR_HANDLER,
+  InjectionToken,
+  Injector,
+  NgZone,
+  RuntimeError,
+  Version,
+  formatRuntimeError,
+  inject,
+  stringify,
+  untracked,
+  ɵɵdefineInjectable,
+  ɵɵdefineInjector,
+  ɵɵinject
+} from "./chunk-WO4SMAQ5.js";
 import {
   require_cjs
 } from "./chunk-O5J3CNTX.js";
@@ -4576,4 +4578,4 @@ export {
   PRECONNECT_CHECK_BLOCKLIST,
   NgOptimizedImage
 };
-//# sourceMappingURL=chunk-FSIXVNQC.js.map
+//# sourceMappingURL=chunk-WR4OKIV3.js.map

@@ -1,45 +1,44 @@
 import { createRequire } from 'module';const require = createRequire(import.meta.url);
 import {
+  index
+} from "./chunk-WC4PITUE.js";
+import {
   ActivatedRoute,
   ROUTES,
   Router,
   loadChildren
-} from "./chunk-WNFBRLG4.js";
+} from "./chunk-L5OYN5OP.js";
 import {
   BrowserDomAdapter,
   BrowserModule,
   EVENT_MANAGER_PLUGINS,
   EventManagerPlugin
-} from "./chunk-MBOOVUUM.js";
-import {
-  HTTP_ROOT_INTERCEPTOR_FNS
-} from "./chunk-SDRPYY4R.js";
+} from "./chunk-CB7LWYNB.js";
 import {
   APP_BASE_HREF,
   NullViewportScroller,
   PLATFORM_SERVER_ID,
   ViewportScroller
-} from "./chunk-FSIXVNQC.js";
+} from "./chunk-WR4OKIV3.js";
+import {
+  HTTP_ROOT_INTERCEPTOR_FNS
+} from "./chunk-AYGC3WIQ.js";
 import {
   PlatformLocation,
   XhrFactory,
   getDOM,
   setRootDomAdapter
-} from "./chunk-DLFPOZS2.js";
+} from "./chunk-KOI6EMID.js";
 import {
   APP_ID,
   ApplicationRef,
   CSP_NONCE,
   Compiler,
   Console,
-  DOCUMENT,
   ENABLE_ROOT_COMPONENT_BOOTSTRAP,
-  EnvironmentInjector,
   IS_HYDRATION_DOM_REUSE_ENABLED,
   Inject,
   Injectable,
-  InjectionToken,
-  Injector,
   LOCALE_ID,
   NgModule,
   PLATFORM_ID,
@@ -52,31 +51,34 @@ import {
   TESTABILITY,
   Testability,
   TransferState,
-  Version,
   annotateForHydration,
   createEnvironmentInjector,
   createPlatformFactory,
-  inject,
-  makeEnvironmentProviders,
   platformCore,
-  provideEnvironmentInitializer,
   resetCompiledComponents,
-  runInInjectionContext,
   setClassMetadata,
   setDocument,
   startMeasuring,
   stopMeasuring,
+  ɵɵdefineNgModule
+} from "./chunk-XO3O5FQH.js";
+import {
+  DOCUMENT,
+  EnvironmentInjector,
+  InjectionToken,
+  Injector,
+  Version,
+  inject,
+  makeEnvironmentProviders,
+  provideEnvironmentInitializer,
+  runInInjectionContext,
   ɵɵdefineInjectable,
   ɵɵdefineInjector,
-  ɵɵdefineNgModule,
   ɵɵinject
-} from "./chunk-LDU5HW7I.js";
+} from "./chunk-WO4SMAQ5.js";
 import {
   require_cjs
 } from "./chunk-O5J3CNTX.js";
-import {
-  index
-} from "./chunk-WC4PITUE.js";
 import {
   __objRest,
   __spreadProps,
@@ -12536,4 +12538,4 @@ export {
   AngularAppEngine,
   createRequestHandler
 };
-//# sourceMappingURL=chunk-X5U67SOO.js.map
+//# sourceMappingURL=chunk-QF7E7HS6.js.map

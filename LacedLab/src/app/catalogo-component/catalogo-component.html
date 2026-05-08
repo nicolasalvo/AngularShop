@@ -1,21 +1,14 @@
 <div class="bg-[#0a0a0a] min-h-screen px-8 py-20 relative overflow-hidden">
-  <!-- Decorative background -->
   <div class="absolute top-0 right-0 w-[800px] h-[800px] bg-[#FF5C00]/5 rounded-full blur-[150px] pointer-events-none animate-pulse-slow"></div>
 
   <div class="max-w-7xl mx-auto relative z-10">
-    <!-- Header del Catálogo -->
     <div class="mb-16 animate-fade-in-up">
-      <span class="inline-block px-4 py-1.5 mb-4 text-[10px] font-black uppercase tracking-[0.3em] text-[#FF5C00] bg-[#FF5C00]/10 rounded-full border border-[#FF5C00]/20 animate-float">
-        Inventario Real-Time
-      </span>
       <h1 class="text-6xl font-black text-white tracking-tighter uppercase mb-4 font-outfit">Catálogo <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FF5C00] to-[#ff8c00]">Completo</span></h1>
       <p class="text-white/50 max-w-lg font-medium text-lg">Explora nuestra selección curada de las mejores marcas del mundo. Autenticidad 100% garantizada.</p>
     </div>
 
-    <!-- Panel de Filtros Premium -->
     <div class="bg-[#121212]/80 backdrop-blur-xl p-8 rounded-[32px] border border-white/5 mb-16 shadow-2xl animate-fade-in-up" style="animation-delay: 0.1s;">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <!-- Búsqueda -->
         <div class="flex flex-col gap-3 group/input focus-within:text-[#FF5C00]">
           <label class="text-[10px] font-black text-white/30 group-focus-within/input:text-[#FF5C00] uppercase tracking-[0.2em] transition-colors">Búsqueda Global</label>
           <div class="relative group">
@@ -34,7 +27,6 @@
           </div>
         </div>
 
-        <!-- Marca -->
         <div class="flex flex-col gap-3 group/input focus-within:text-[#FF5C00]">
           <label class="text-[10px] font-black text-white/30 group-focus-within/input:text-[#FF5C00] uppercase tracking-[0.2em] transition-colors">Seleccionar Marca</label>
           <div class="relative group">
@@ -55,7 +47,6 @@
           </div>
         </div>
 
-        <!-- Ordenar -->
         <div class="flex flex-col gap-3 group/input focus-within:text-[#FF5C00]">
           <label class="text-[10px] font-black text-white/30 group-focus-within/input:text-[#FF5C00] uppercase tracking-[0.2em] transition-colors">Prioridad</label>
           <div class="relative group">
@@ -78,7 +69,6 @@
       </div>
     </div>
 
-    <!-- Grid de Productos -->
     @if (loading) {
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
         @for (item of [1,2,3,4,5,6,7,8]; track item) {
@@ -113,31 +103,102 @@
                 }
                 
                 <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500 backdrop-blur-[2px] opacity-0 group-hover:opacity-100"></div>
-                
-                <div class="absolute bottom-6 left-1/2 -translate-x-1/2 translate-y-12 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-100">
-                  <button class="px-8 py-3 bg-white text-black text-[10px] font-black uppercase tracking-widest rounded-full shadow-2xl shadow-black hover:bg-[#FF5C00] hover:text-white transition-colors">
-                    Vista Rápida
-                  </button>
-                </div>
               </div>
-              
-              <div class="p-8 flex flex-col flex-1">
+                     <div class="p-8 flex flex-col flex-1">
                 <div class="flex justify-between items-start mb-2">
                   <p class="text-[10px] font-black text-[#FF5C00] uppercase tracking-[0.2em]">{{ product.brand }}</p>
                   <span class="text-[9px] font-black text-white/30 uppercase tracking-[0.3em] border border-white/10 px-2 py-0.5 rounded-full">New</span>
                 </div>
+                
                 <h4 class="text-xl font-bold text-white leading-snug mb-6 group-hover:text-[#FF5C00] transition-colors font-outfit line-clamp-2">{{ product.name }}</h4>
                 
-                <div class="mt-auto flex items-end justify-between border-t border-white/5 pt-6">
-                  <div class="flex flex-col">
-                    <span class="text-[9px] text-white/40 uppercase font-bold tracking-widest mb-1">Market Price</span>
+                <!-- Spacer para empujar el precio y el botón abajo -->
+                <div class="mt-auto pt-6 border-t border-white/5">
+                  <div class="flex flex-col mb-6">
+                    <span class="text-[9px] text-white/40 uppercase font-bold tracking-widest mb-1">Precio</span>
                     <span class="text-2xl font-black text-white tracking-tighter">{{ product.price | currency:'EUR':'symbol':'1.0-0' }}</span>
                   </div>
-                  <button class="w-12 h-12 flex items-center justify-center bg-white/5 text-white rounded-full border border-white/5 hover:bg-[#FF5C00] hover:text-white hover:border-[#FF5C00] transition-all duration-300 active:scale-90 shadow-lg">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M5 12h14m-7-7 7 7-7 7"/>
-                    </svg>
-                  </button>
+
+                  @if (selectedProductId === product.id) {
+                    <div class="mb-6 animate-in slide-in-from-bottom-2 duration-300">
+                      <div class="flex justify-between items-center mb-3">
+                        <span class="text-[9px] font-black text-white/30 uppercase tracking-[0.2em]">Seleccionar Talla</span>
+                        <button (click)="selectedProductId = null; $event.stopPropagation()" class="text-[9px] font-black text-[#FF5C00] uppercase hover:underline transition-all">Cerrar</button>
+                      </div>
+                      <div class="grid grid-cols-4 gap-2">
+                        @for (size of product.sizes; track size) {
+                          <div class="relative group/size">
+                            <button 
+                              (click)="addToCart(product, size); $event.stopPropagation()"
+                              class="w-full h-11 flex flex-col items-center justify-center text-[10px] font-black border border-white/10 rounded-lg text-white hover:border-[#FF5C00] hover:bg-[#FF5C00] transition-all active:scale-90"
+                              [class.bg-[#FF5C00]]="getProductQuantity(product.id, size) > 0"
+                              [class.border-[#FF5C00]]="getProductQuantity(product.id, size) > 0"
+                            >
+                              <span>{{ size }}</span>
+                              @if (getProductQuantity(product.id, size) > 0) {
+                                <span class="text-[8px] opacity-60 mt-0.5">Qty: {{ getProductQuantity(product.id, size) }}</span>
+                              }
+                            </button>
+                            
+                            @if (getProductQuantity(product.id, size) > 0) {
+                              <button 
+                                (click)="decrementQuantity(product, size); $event.stopPropagation()"
+                                class="absolute -top-1.5 -left-1.5 w-5 h-5 bg-white text-black rounded-full flex items-center justify-center text-[12px] font-bold shadow-2xl hover:bg-red-600 hover:text-white transition-all border border-black/5 animate-in zoom-in duration-200"
+                              >
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+                                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                                </svg>
+                              </button>
+                            }
+                          </div>
+                        }
+                      </div>
+                    </div>
+                  }
+
+                  @if (getTotalProductQuantity(product.id) === 0) {
+                    <button 
+                      (click)="addToCart(product); $event.stopPropagation()"
+                      class="w-full h-14 flex items-center justify-center rounded-2xl transition-all duration-500 active:scale-[0.97] group/btn overflow-hidden relative border bg-white/5 border-white/5 text-white/60 hover:bg-white/10 hover:border-white/10 hover:text-white"
+                    >
+                      <div class="flex items-center gap-3 animate-in fade-in zoom-in duration-300">
+                        <span class="text-[11px] font-black uppercase tracking-[0.15em] font-outfit">Añadir a la cesta</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="m5 11 4-7"/><path d="m19 11-4-7"/><path d="M2 11h20"/><path d="m3.5 11 1.6 7.4a2 2 0 0 0 2 1.6h9.8c.9 0 1.8-.7 2-1.6l1.7-7.4"/><path d="M9 11v5"/><path d="M15 11v5"/>
+                        </svg>
+                      </div>
+                    </button>
+                  } @else {
+                    <div 
+                      class="w-full h-14 flex items-center justify-between px-2 rounded-2xl border bg-[#FF5C00] border-[#FF5C00] text-white shadow-lg shadow-[#FF5C00]/20 transition-all animate-cart-in"
+                    >
+                      <button 
+                        (click)="decrementProduct(product); $event.stopPropagation()"
+                        class="w-10 h-10 flex items-center justify-center rounded-xl hover:bg-black/10 active:scale-90 transition-all"
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                          <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                      </button>
+
+                      <span 
+                        (click)="addToCart(product); $event.stopPropagation()"
+                        class="flex-1 h-full flex items-center justify-center text-xs font-black uppercase tracking-widest font-outfit cursor-pointer"
+                      >
+                        {{ getTotalProductQuantity(product.id) }} en la cesta
+                      </span>
+
+                      <button 
+                        (click)="addToCart(product); $event.stopPropagation()"
+                        class="w-10 h-10 flex items-center justify-center rounded-xl hover:bg-black/10 active:scale-90 transition-all"
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                          <line x1="12" y1="5" x2="12" y2="19"></line>
+                          <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                      </button>
+                    </div>
+                  }
                 </div>
               </div>
             </div>

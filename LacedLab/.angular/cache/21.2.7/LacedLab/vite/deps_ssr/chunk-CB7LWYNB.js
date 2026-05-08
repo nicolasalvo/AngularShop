@@ -1,50 +1,39 @@
 import { createRequire } from 'module';const require = createRequire(import.meta.url);
 import {
-  withHttpTransferCache
-} from "./chunk-SDRPYY4R.js";
-import {
   CommonModule,
   PLATFORM_BROWSER_ID
-} from "./chunk-FSIXVNQC.js";
+} from "./chunk-WR4OKIV3.js";
+import {
+  withHttpTransferCache
+} from "./chunk-AYGC3WIQ.js";
 import {
   DomAdapter,
   XhrFactory,
   getDOM,
   parseCookieValue,
   setRootDomAdapter
-} from "./chunk-DLFPOZS2.js";
+} from "./chunk-KOI6EMID.js";
 import {
   APP_ID,
   ApplicationModule,
   ApplicationRef,
   CSP_NONCE,
   Console,
-  DOCUMENT,
-  ENVIRONMENT_INITIALIZER,
-  ErrorHandler,
-  INJECTOR_SCOPE,
   IS_ENABLED_BLOCKING_INITIAL_NAVIGATION,
   Inject,
   Injectable,
-  InjectionToken,
-  Injector,
   NgModule,
-  NgZone,
   Optional,
   PLATFORM_ID,
   PLATFORM_INITIALIZER,
   RendererFactory2,
   RendererStyleFlags2,
-  RuntimeError,
   SecurityContext,
   TESTABILITY,
   TESTABILITY_GETTER,
   Testability,
   TracingService,
-  Version,
   ViewEncapsulation,
-  XSS_SECURITY_URL,
-  _global,
   _sanitizeHtml,
   _sanitizeUrl,
   allLeavingAnimations,
@@ -55,11 +44,7 @@ import {
   bypassSanitizationTrustStyle,
   bypassSanitizationTrustUrl,
   createPlatformFactory,
-  formatRuntimeError,
-  forwardRef,
-  inject,
   internalCreateApplication,
-  makeEnvironmentProviders,
   platformCore,
   provideStabilityDebugging,
   setClassMetadata,
@@ -69,11 +54,28 @@ import {
   withEventReplay,
   withI18nSupport,
   withIncrementalHydration,
+  ɵɵdefineNgModule
+} from "./chunk-XO3O5FQH.js";
+import {
+  DOCUMENT,
+  ENVIRONMENT_INITIALIZER,
+  ErrorHandler,
+  INJECTOR_SCOPE,
+  InjectionToken,
+  Injector,
+  NgZone,
+  RuntimeError,
+  Version,
+  XSS_SECURITY_URL,
+  _global,
+  formatRuntimeError,
+  forwardRef,
+  inject,
+  makeEnvironmentProviders,
   ɵɵdefineInjectable,
   ɵɵdefineInjector,
-  ɵɵdefineNgModule,
   ɵɵinject
-} from "./chunk-LDU5HW7I.js";
+} from "./chunk-WO4SMAQ5.js";
 import {
   __spreadProps,
   __spreadValues
@@ -1748,4 +1750,4 @@ export {
   provideClientHydration,
   VERSION
 };
-//# sourceMappingURL=chunk-MBOOVUUM.js.map
+//# sourceMappingURL=chunk-CB7LWYNB.js.map

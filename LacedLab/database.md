@@ -130,3 +130,22 @@ con: { "full_name": "Usuario Test", "role": "user", "email_verified": true }
 
 Haz lo mismo para admin@test.com con role: "admin" y full_name: "Admin User"
 ```
+
+---
+
+## Prompt 6 — Tabla cart_items (Cesta de la compra)
+
+```
+Crea la tabla cart_items en Supabase con estos campos:
+- id (uuid, primary key, gen_random_uuid())
+- user_id (uuid, foreign key a auth.users.id, ON DELETE CASCADE)
+- product_id (uuid, foreign key a products.id, ON DELETE CASCADE)
+- size (text, nullable)
+- quantity (integer, not null, mayor que 0, default 1)
+- created_at (timestamptz, default now())
+- updated_at (timestamptz, default now())
+
+Añade una restricción UNIQUE para (user_id, product_id, size) para evitar duplicados del mismo producto con la misma talla.
+Activa RLS. Un usuario solo puede ver, insertar, actualizar y eliminar sus propios items de la cesta.
+Crea índices en user_id, product_id y size.
+```
