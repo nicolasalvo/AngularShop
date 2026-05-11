@@ -23,6 +23,7 @@ export class HeaderComponent {
 
   // Usamos computed para crear una señal derivada que nos dice si el usuario está logueado
   isLoggedIn = computed(() => this.authService.currentUser() !== null);
+  isAdmin = this.authService.isAdmin;
   user = this.authService.currentUser;
 
   // Convertimos los observables a señales

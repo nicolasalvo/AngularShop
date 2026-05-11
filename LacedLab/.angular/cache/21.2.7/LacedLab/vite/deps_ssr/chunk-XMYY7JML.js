@@ -2,17 +2,17 @@ import { createRequire } from 'module';const require = createRequire(import.meta
 import {
   CommonModule,
   PLATFORM_BROWSER_ID
-} from "./chunk-WR4OKIV3.js";
+} from "./chunk-76N4L6JE.js";
 import {
   withHttpTransferCache
-} from "./chunk-AYGC3WIQ.js";
+} from "./chunk-HCZ2XF23.js";
 import {
   DomAdapter,
   XhrFactory,
   getDOM,
   parseCookieValue,
   setRootDomAdapter
-} from "./chunk-KOI6EMID.js";
+} from "./chunk-KZQ5CJRM.js";
 import {
   APP_ID,
   ApplicationModule,
@@ -55,7 +55,7 @@ import {
   withI18nSupport,
   withIncrementalHydration,
   ɵɵdefineNgModule
-} from "./chunk-XO3O5FQH.js";
+} from "./chunk-4I7KHDNK.js";
 import {
   DOCUMENT,
   ENVIRONMENT_INITIALIZER,
@@ -75,7 +75,7 @@ import {
   ɵɵdefineInjectable,
   ɵɵdefineInjector,
   ɵɵinject
-} from "./chunk-WO4SMAQ5.js";
+} from "./chunk-SOYURDH5.js";
 import {
   __spreadProps,
   __spreadValues
@@ -1750,4 +1750,4 @@ export {
   provideClientHydration,
   VERSION
 };
-//# sourceMappingURL=chunk-CB7LWYNB.js.map
+//# sourceMappingURL=chunk-XMYY7JML.js.map

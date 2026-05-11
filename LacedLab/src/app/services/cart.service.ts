@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Product } from './product.service';
-import { createClient, SupabaseClient } from '@supabase/supabase-js';
-import { environment } from '../../environments/environment';
+import { SupabaseClient } from '@supabase/supabase-js';
 import { AuthService } from './auth.service';
+import { SupabaseService } from './supabase.service';
 
 export interface CartItem extends Product {
   quantity: number;
@@ -22,10 +22,7 @@ export class CartService {
   totalItems$ = new BehaviorSubject<number>(0);
 
   constructor(private authService: AuthService) {
-    this.supabase = createClient(
-      environment.supabase.url,
-      environment.supabase.anonKey
-    );
+    this.supabase = inject(SupabaseService).client;
 
     // Escuchar cambios de autenticación para cargar/limpiar la cesta
     this.supabase.auth.onAuthStateChange((event, session) => {

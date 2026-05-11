@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { createClient, SupabaseClient } from '@supabase/supabase-js';
-import { environment } from '../../environments/environment';
+import { Injectable, inject } from '@angular/core';
+import { SupabaseClient } from '@supabase/supabase-js';
+import { SupabaseService } from './supabase.service';
 
 export interface Category {
   id: string;
@@ -31,10 +31,7 @@ export class ProductService {
   private supabase: SupabaseClient;
 
   constructor() {
-    this.supabase = createClient(
-      environment.supabase.url,
-      environment.supabase.anonKey
-    );
+    this.supabase = inject(SupabaseService).client;
   }
 
   async getFeaturedProducts(): Promise<Product[]> {
@@ -109,5 +106,23 @@ export class ProductService {
     }
 
     return data as Product;
+  }
+
+  async uploadImage(file: File): Promise<string | null> {
+    const fileName = `${Date.now()}_${file.name.replace(/\s/g, '_')}`;
+    const { data, error } = await this.supabase.storage
+      .from('product-images')
+      .upload(fileName, file);
+
+    if (error) {
+      console.error('Error uploading image:', error.message);
+      return null;
+    }
+
+    const { data: { publicUrl } } = this.supabase.storage
+      .from('product-images')
+      .getPublicUrl(fileName);
+
+    return publicUrl;
   }
 }

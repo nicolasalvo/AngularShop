@@ -51,7 +51,8 @@ export class AdminPedidos implements OnInit {
     try {
       const success = await this.orderService.updateOrder(this.selectedOrder.id, {
         status: this.selectedOrder.status,
-        shipping_address: this.selectedOrder.shipping_address
+        shipping_address: this.selectedOrder.shipping_address,
+        notes: this.selectedOrder.notes
       });
       
       if (success) {

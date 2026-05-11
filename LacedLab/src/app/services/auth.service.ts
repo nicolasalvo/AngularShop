@@ -1,6 +1,6 @@
-import { Injectable, signal } from '@angular/core';
-import { createClient, SupabaseClient, User } from '@supabase/supabase-js';
-import { environment } from '../../environments/environment';
+import { Injectable, signal, computed, inject } from '@angular/core';
+import { SupabaseClient, User } from '@supabase/supabase-js';
+import { SupabaseService } from './supabase.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,11 +11,11 @@ export class AuthService {
   // Usamos Angular Signals para tener un estado reactivo del usuario
   public currentUser = signal<User | null>(null);
 
+  // Señal derivada para saber si el usuario es administrador
+  public isAdmin = computed(() => this.currentUser()?.email === 'admin@admin.admin');
+
   constructor() {
-    this.supabase = createClient(
-      environment.supabase.url,
-      environment.supabase.anonKey
-    );
+    this.supabase = inject(SupabaseService).client;
 
     // Recuperar sesión inicial
     this.supabase.auth.getSession().then(({ data: { session } }) => {

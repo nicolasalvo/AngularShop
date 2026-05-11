@@ -2,7 +2,7 @@ import {
   __awaiter,
   __rest,
   __spreadValues
-} from "./chunk-GY2V2KO6.js";
+} from "./chunk-4FRP4S3T.js";
 
 // node_modules/@supabase/functions-js/dist/module/helper.js
 var resolveFetch = (customFetch) => {

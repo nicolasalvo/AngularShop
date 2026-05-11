@@ -33,6 +33,8 @@ export class AdminProductos implements OnInit {
   };
 
   sizeInput = '';
+  imageFile: File | null = null;
+  imagePreview: string | null = null;
 
   async ngOnInit() {
     await this.loadData();
@@ -50,6 +52,19 @@ export class AdminProductos implements OnInit {
     } finally {
       this.loading = false;
       this.cdr.detectChanges();
+    }
+  }
+
+  onFileSelected(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      this.imageFile = file;
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.imagePreview = e.target.result;
+        this.cdr.detectChanges();
+      };
+      reader.readAsDataURL(file);
     }
   }
 
@@ -76,6 +91,8 @@ export class AdminProductos implements OnInit {
       category_id: ''
     };
     this.sizeInput = '';
+    this.imageFile = null;
+    this.imagePreview = null;
   }
 
   addSize() {
@@ -106,6 +123,19 @@ export class AdminProductos implements OnInit {
 
     this.saving = true;
     try {
+      // 1. Subir imagen si hay un archivo seleccionado
+      if (this.imageFile) {
+        const publicUrl = await this.productService.uploadImage(this.imageFile);
+        if (publicUrl) {
+          this.newProduct.image_url = publicUrl;
+        } else {
+          alert('Error al subir la imagen. Inténtalo de nuevo.');
+          this.saving = false;
+          return;
+        }
+      }
+
+      // 2. Guardar producto
       const result = await this.productService.addProduct(this.newProduct);
       if (result) {
         this.closeModal();
@@ -131,7 +161,7 @@ export class AdminProductos implements OnInit {
       this.newProduct.brand &&
       this.newProduct.category_id &&
       this.newProduct.sizes.length > 0 &&
-      this.newProduct.image_url
+      (this.newProduct.image_url || this.imageFile)
     );
   }
 }

@@ -41,18 +41,21 @@
                   <td class="px-8 py-6 text-sm text-white/50">{{ order.created_at | date:'dd/MM/yyyy HH:mm' }}</td>
                   <td class="px-8 py-6 text-sm font-bold text-white">
                     <div class="flex flex-col">
-                      <span class="truncate max-w-[120px]">{{ order.user_id }}</span>
+                      <span class="truncate max-w-[120px]">{{ (order as any).user_name || order.user_id }}</span>
                     </div>
                   </td>
                   <td class="px-8 py-6 text-sm font-black text-[#FF5C00] tracking-tighter">{{ order.total_amount | currency:'EUR' }}</td>
                   <td class="px-8 py-6">
                     <span [ngClass]="{
-                      'text-green-500 bg-green-500/10': order.status === 'Completado',
-                      'text-orange-500 bg-orange-500/10': order.status === 'pending',
-                      'text-blue-500 bg-blue-500/10': order.status === 'Enviado',
-                      'text-red-500 bg-red-500/10': order.status === 'Cancelado'
-                    }" class="text-[9px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full border border-current/20">
-                      {{ order.status === 'pending' ? 'Pendiente' : order.status }}
+                      'text-green-500 bg-green-500/10 border-green-500/20': order.status === 'delivered',
+                      'text-orange-500 bg-orange-500/10 border-orange-500/20': order.status === 'pending',
+                      'text-blue-500 bg-blue-500/10 border-blue-500/20': order.status === 'shipped',
+                      'text-red-500 bg-red-500/10 border-red-500/20': order.status === 'cancelled'
+                    }" class="text-[9px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full border">
+                      {{ order.status === 'pending' ? 'Pendiente' : 
+                         order.status === 'shipped' ? 'Enviado' : 
+                         order.status === 'delivered' ? 'Completado' : 
+                         order.status === 'cancelled' ? 'Cancelado' : order.status }}
                     </span>
                   </td>
                   <td class="px-8 py-6 text-right">
@@ -116,6 +119,17 @@
               [(ngModel)]="selectedOrder.shipping_address"
               rows="3"
               class="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white text-sm focus:border-[#FF5C00] outline-none transition-all resize-none font-medium"
+            ></textarea>
+          </div>
+
+          <!-- Notes Field -->
+          <div>
+            <label class="text-[10px] font-black text-white/30 uppercase tracking-widest mb-3 block">Notas del Pedido</label>
+            <textarea 
+              [(ngModel)]="selectedOrder.notes"
+              rows="2"
+              class="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white text-sm focus:border-[#FF5C00] outline-none transition-all resize-none font-medium"
+              placeholder="Ej: Entregar por la tarde..."
             ></textarea>
           </div>
 

@@ -15,7 +15,7 @@ import {
   resource,
   signal,
   untracked
-} from "./chunk-WO4SMAQ5.js";
+} from "./chunk-SOYURDH5.js";
 import {
   require_cjs
 } from "./chunk-O5J3CNTX.js";

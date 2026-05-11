@@ -1,8 +1,8 @@
 import { Injectable, inject } from '@angular/core';
-import { createClient, SupabaseClient } from '@supabase/supabase-js';
-import { environment } from '../../environments/environment';
+import { SupabaseClient } from '@supabase/supabase-js';
 import { AuthService } from './auth.service';
 import { Product } from './product.service';
+import { SupabaseService } from './supabase.service';
 
 export interface OrderItem {
   id: string;
@@ -33,10 +33,7 @@ export class OrderService {
   private authService = inject(AuthService);
 
   constructor() {
-    this.supabase = createClient(
-      environment.supabase.url,
-      environment.supabase.anonKey
-    );
+    this.supabase = inject(SupabaseService).client;
   }
 
   async getUserOrders(): Promise<Order[]> {
@@ -69,11 +66,11 @@ export class OrderService {
   }
 
   async getAllOrders(): Promise<Order[]> {
+    console.log('OrderService: Fetching all orders...');
     const { data, error } = await this.supabase
       .from('orders')
       .select(`
         *,
-        user:auth_users (email),
         order_items (
           *,
           product:products (*)
@@ -85,8 +82,8 @@ export class OrderService {
     // If auth.users is not accessible directly, we might just use user_id or a profiles table
 
     if (error) {
-      console.error('Error fetching all orders:', error.message);
-      // Fallback if auth_users join fails
+      console.error('Error fetching all orders with profiles:', error.message);
+      // Fallback if join fails (e.g. user_profiles view doesn't exist yet)
       const { data: dataBasic, error: errorBasic } = await this.supabase
         .from('orders')
         .select(`
@@ -97,6 +94,8 @@ export class OrderService {
           )
         `)
         .order('created_at', { ascending: false });
+        
+      console.log('OrderService: Fallback data count:', dataBasic?.length || 0);
       const mappedFallback = (dataBasic as any[] || []).map(order => ({
         ...order,
         items: order.order_items
@@ -104,8 +103,10 @@ export class OrderService {
       return mappedFallback as Order[];
     }
 
-    const mappedData = (data as any[]).map(order => ({
+    console.log('OrderService: Orders fetched successfully, count:', data?.length || 0);
+    const mappedData = (data as any[] || []).map(order => ({
       ...order,
+      user_name: order.user?.full_name || 'Desconocido',
       items: order.order_items
     }));
 
