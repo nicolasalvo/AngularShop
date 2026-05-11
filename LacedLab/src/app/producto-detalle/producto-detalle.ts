@@ -46,6 +46,12 @@ export class ProductoDetalleComponent implements OnInit {
     }
   }
 
+  removeFromCart() {
+    if (this.product && this.selectedSize) {
+      this.cartService.decrementQuantity(this.product, this.selectedSize);
+    }
+  }
+
   getProductQuantity(productId: string, size?: string): number {
     return this.cartService.getQuantity(productId, size);
   }

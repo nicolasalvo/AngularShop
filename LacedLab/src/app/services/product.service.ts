@@ -2,8 +2,16 @@ import { Injectable } from '@angular/core';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { environment } from '../../environments/environment';
 
+export interface Category {
+  id: string;
+  name: string;
+  slug: string;
+  description?: string;
+}
+
 export interface Product {
   id: string;
+  category_id?: string;
   name: string;
   slug: string;
   description: string;
@@ -13,6 +21,7 @@ export interface Product {
   sizes: string[];
   image_url: string;
   is_active: boolean;
+  category?: Category;
 }
 
 @Injectable({
@@ -31,7 +40,7 @@ export class ProductService {
   async getFeaturedProducts(): Promise<Product[]> {
     const { data, error } = await this.supabase
       .from('products')
-      .select('*')
+      .select('*, category:categories(*)')
       .eq('is_active', true)
       .order('created_at', { ascending: true })
       .limit(4);
@@ -41,15 +50,13 @@ export class ProductService {
       return [];
     }
 
-    console.log('Products fetched:', data);
     return data as Product[];
   }
 
   async getProducts(): Promise<Product[]> {
     const { data, error } = await this.supabase
       .from('products')
-      .select('*')
-      .eq('is_active', true)
+      .select('*, category:categories(*)')
       .order('created_at', { ascending: false });
 
     if (error) {
@@ -63,12 +70,41 @@ export class ProductService {
   async getProductBySlug(slug: string): Promise<Product | null> {
     const { data, error } = await this.supabase
       .from('products')
-      .select('*')
+      .select('*, category:categories(*)')
       .eq('slug', slug)
       .single();
 
     if (error) {
       console.error('Error fetching product by slug:', error.message);
+      return null;
+    }
+
+    return data as Product;
+  }
+
+  async getCategories(): Promise<Category[]> {
+    const { data, error } = await this.supabase
+      .from('categories')
+      .select('*')
+      .order('name');
+
+    if (error) {
+      console.error('Error fetching categories:', error.message);
+      return [];
+    }
+
+    return data as Category[];
+  }
+
+  async addProduct(product: Omit<Product, 'id' | 'category'>): Promise<Product | null> {
+    const { data, error } = await this.supabase
+      .from('products')
+      .insert([product])
+      .select()
+      .single();
+
+    if (error) {
+      console.error('Error adding product:', error.message);
       return null;
     }
 

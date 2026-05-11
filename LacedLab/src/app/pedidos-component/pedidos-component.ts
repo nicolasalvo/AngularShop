@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { OrderService, Order } from '../services/order.service';
 
 @Component({
   selector: 'app-pedidos-component',
@@ -8,8 +9,18 @@ import { CommonModule } from '@angular/common';
   imports: [RouterLink, CommonModule],
   templateUrl: './pedidos-component.html',
 })
-export class PedidosComponent {
-  myOrders = [
-    { id: 'ORD-7721', date: '2026-05-07', total: 450, status: 'Completado', items: 2 },
-  ];
+export class PedidosComponent implements OnInit {
+  private orderService = inject(OrderService);
+  private cdr = inject(ChangeDetectorRef);
+  myOrders: Order[] = [];
+  loading = true;
+
+  async ngOnInit() {
+    try {
+      this.myOrders = await this.orderService.getUserOrders();
+    } finally {
+      this.loading = false;
+      this.cdr.detectChanges();
+    }
+  }
 }

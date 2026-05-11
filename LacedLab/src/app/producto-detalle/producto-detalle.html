@@ -80,21 +80,42 @@
 
           <!-- Add to Cart -->
           <div class="flex flex-col gap-6">
-            <button 
-              (click)="addToCart()"
-              [disabled]="!selectedSize"
-              class="w-full h-16 rounded-2xl flex items-center justify-center gap-4 transition-all duration-500 shadow-2xl relative overflow-hidden group/btn"
-              [class.bg-[#FF5C00]]="selectedSize"
-              [class.text-white]="selectedSize"
-              [class.bg-white/5]="!selectedSize"
-              [class.text-white/20]="!selectedSize"
-              [class.cursor-not-allowed]="!selectedSize"
-            >
-              <span class="text-[11px] font-black uppercase tracking-[0.2em]">Añadir al carrito</span>
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="m5 11 4-7"/><path d="m19 11-4-7"/><path d="M2 11h20"/><path d="m3.5 11 1.6 7.4a2 2 0 0 0 2 1.6h9.8c.9 0 1.8-.7 2-1.6l1.7-7.4"/><path d="M9 11v5"/><path d="M15 11v5"/>
-              </svg>
-            </button>
+            <div class="flex gap-4">
+              @if (selectedSize && getProductQuantity(product.id, selectedSize) > 0) {
+                <button 
+                  (click)="removeFromCart()"
+                  class="w-20 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-white/10 transition-all duration-300 active:scale-95"
+                  title="Quitar uno"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                  </svg>
+                </button>
+              }
+
+              <button 
+                (click)="addToCart()"
+                [disabled]="!selectedSize"
+                class="flex-1 h-16 rounded-2xl flex items-center justify-center gap-4 transition-all duration-500 shadow-2xl relative overflow-hidden group/btn"
+                [class.bg-[#FF5C00]]="selectedSize"
+                [class.text-white]="selectedSize"
+                [class.bg-white/5]="!selectedSize"
+                [class.text-white/20]="!selectedSize"
+                [class.cursor-not-allowed]="!selectedSize"
+              >
+                <div class="absolute inset-0 bg-white/10 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-500"></div>
+                <span class="text-[11px] font-black uppercase tracking-[0.2em] relative z-10">
+                  @if (selectedSize && getProductQuantity(product.id, selectedSize) > 0) {
+                    Añadir otra ({{ getProductQuantity(product.id, selectedSize) }})
+                  } @else {
+                    Añadir al carrito
+                  }
+                </span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="relative z-10">
+                  <path d="m5 11 4-7"/><path d="m19 11-4-7"/><path d="M2 11h20"/><path d="m3.5 11 1.6 7.4a2 2 0 0 0 2 1.6h9.8c.9 0 1.8-.7 2-1.6l1.7-7.4"/><path d="M9 11v5"/><path d="M15 11v5"/>
+                </svg>
+              </button>
+            </div>
 
             <a routerLink="/catalogo" class="flex items-center justify-center gap-2 text-[10px] font-black text-white/30 uppercase tracking-widest hover:text-[#FF5C00] transition-colors mt-4">
                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">

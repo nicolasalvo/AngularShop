@@ -8,6 +8,7 @@ import { PedidosComponent } from './pedidos-component/pedidos-component';
 import { AdminProductos } from './admin-productos/admin-productos';
 import { AdminPedidos } from './admin-pedidos/admin-pedidos';
 import { ProductoDetalleComponent } from './producto-detalle/producto-detalle';
+import { CheckoutComponent } from './checkout-component/checkout.component';
 
 export const routes: Routes = [
   { path: 'register', component: RegisterComponent },
@@ -15,6 +16,7 @@ export const routes: Routes = [
   { path: 'inicio', component: InicioComponent },
   { path: 'catalogo', component: CatalogoComponent },
   { path: 'pedidos', component: PedidosComponent },
+  { path: 'checkout', component: CheckoutComponent },
   { path: 'admin-productos', component: AdminProductos },
   { path: 'admin-pedidos', component: AdminPedidos },
   { path: 'producto/:slug', component: ProductoDetalleComponent },

@@ -194,6 +194,23 @@ export class CartService {
     return item ? item.quantity : 0;
   }
 
+  async clearCart() {
+    const user = this.authService.currentUser();
+    this.cartItems.next([]);
+    this.updateTotalCount([]);
+
+    if (user) {
+      await this.supabase
+        .from('cart_items')
+        .delete()
+        .eq('user_id', user.id);
+    } else {
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem('cart_guest');
+      }
+    }
+  }
+
   getCartItems(): CartItem[] {
     return this.cartItems.value;
   }

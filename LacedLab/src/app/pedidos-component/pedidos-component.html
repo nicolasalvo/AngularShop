@@ -6,7 +6,11 @@
       <p class="text-white/40 mt-2 font-medium">Historial de tus compras y drops exclusivos.</p>
     </div>
 
-    @if (myOrders.length === 0) {
+    @if (loading) {
+      <div class="flex items-center justify-center py-20">
+        <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#FF5C00]"></div>
+      </div>
+    } @else if (myOrders.length === 0) {
       <div class="bg-[#121212] rounded-[40px] border border-white/5 p-20 text-center animate-fade-in-up">
         <div class="w-20 h-20 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-6">
           <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white/20">
@@ -30,16 +34,18 @@
                 </div>
                 <div>
                   <div class="flex items-center gap-3 mb-1">
-                    <span class="text-sm font-bold text-white font-outfit">{{ order.id }}</span>
-                    <span class="text-[9px] font-black uppercase tracking-widest px-2 py-1 bg-green-500/10 text-green-500 rounded-md">{{ order.status }}</span>
+                    <span class="text-xs font-bold text-white font-outfit uppercase tracking-tighter truncate max-w-[150px]">#{{ order.id.split('-')[0] }}</span>
+                    <span class="text-[9px] font-black uppercase tracking-widest px-2 py-1 bg-orange-500/10 text-orange-500 rounded-md">
+                      {{ order.status === 'pending' ? 'Pendiente' : order.status }}
+                    </span>
                   </div>
-                  <p class="text-[10px] text-white/30 uppercase tracking-widest font-black">{{ order.date }} · {{ order.items }} productos</p>
+                  <p class="text-[10px] text-white/30 uppercase tracking-widest font-black">{{ order.created_at | date:'dd/MM/yyyy' }} · {{ order.items?.length || 0 }} productos</p>
                 </div>
               </div>
               <div class="flex items-center gap-8 w-full md:w-auto justify-between md:justify-end border-t md:border-t-0 border-white/5 pt-6 md:pt-0">
                 <div>
                   <p class="text-[9px] text-white/30 uppercase tracking-widest font-black mb-1">Total</p>
-                  <p class="text-2xl font-black text-white tracking-tighter">{{ order.total | currency:'EUR' }}</p>
+                  <p class="text-2xl font-black text-white tracking-tighter">{{ order.total_amount | currency:'EUR' }}</p>
                 </div>
                 <button class="px-8 py-3 bg-white/5 text-white text-[9px] font-black uppercase tracking-widest rounded-full border border-white/5 hover:bg-white hover:text-black transition-all">
                   Ver recibo
