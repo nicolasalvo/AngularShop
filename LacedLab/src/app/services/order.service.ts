@@ -17,6 +17,7 @@ export interface OrderItem {
 export interface Order {
   id: string;
   user_id: string;
+  user_name?: string;
   status: string;
   total_amount: number;
   shipping_address?: string;
@@ -67,7 +68,22 @@ export class OrderService {
 
   async getAllOrders(): Promise<Order[]> {
     console.log('OrderService: Fetching all orders...');
-    const { data, error } = await this.supabase
+    
+    // 1. Intentamos el RPC primero por velocidad y nombres de usuario
+    const { data, error } = await this.supabase.rpc('get_all_orders');
+
+    // Si el RPC funcionó y trajo los artículos (order_items), mapeamos y devolvemos
+    if (!error && data && data.length > 0 && data[0].order_items) {
+      return (data as any[]).map(order => ({
+        ...order,
+        user_name: order.user_name || order.full_name || 'Desconocido',
+        items: order.order_items
+      })) as Order[];
+    }
+
+    // 2. Si el RPC falló o los artículos vienen vacíos, usamos la consulta directa a las tablas
+    console.warn('Usando consulta directa para asegurar carga de artículos...');
+    const { data: directData, error: directError } = await this.supabase
       .from('orders')
       .select(`
         *,
@@ -78,40 +94,18 @@ export class OrderService {
       `)
       .order('created_at', { ascending: false });
 
-    // Note: 'auth_users' might be a view or specific table depending on RLS/schema
-    // If auth.users is not accessible directly, we might just use user_id or a profiles table
-
-    if (error) {
-      console.error('Error fetching all orders with profiles:', error.message);
-      // Fallback if join fails (e.g. user_profiles view doesn't exist yet)
-      const { data: dataBasic, error: errorBasic } = await this.supabase
-        .from('orders')
-        .select(`
-          *,
-          order_items (
-            *,
-            product:products (*)
-          )
-        `)
-        .order('created_at', { ascending: false });
-        
-      console.log('OrderService: Fallback data count:', dataBasic?.length || 0);
-      const mappedFallback = (dataBasic as any[] || []).map(order => ({
-        ...order,
-        items: order.order_items
-      }));
-      return mappedFallback as Order[];
+    if (directError) {
+      console.error('Error en consulta directa:', directError.message);
+      return [];
     }
 
-    console.log('OrderService: Orders fetched successfully, count:', data?.length || 0);
-    const mappedData = (data as any[] || []).map(order => ({
+    return (directData as any[] || []).map(order => ({
       ...order,
-      user_name: order.user?.full_name || 'Desconocido',
+      user_name: order.user_name || 'Desconocido',
       items: order.order_items
-    }));
-
-    return mappedData as Order[];
+    })) as Order[];
   }
+
   async createOrder(items: any[], totalAmount: number, shippingAddress: string = 'Dirección de prueba'): Promise<Order | null> {
     const user = this.authService.currentUser();
     if (!user || items.length === 0) return null;
@@ -149,7 +143,6 @@ export class OrderService {
 
     if (itemsError) {
       console.error('Error creating order items:', itemsError.message);
-      // Podríamos borrar el pedido si falla esto, pero por simplicidad lo dejamos así
       return null;
     }
 
@@ -157,6 +150,16 @@ export class OrderService {
   }
 
   async updateOrder(orderId: string, updates: Partial<Order>): Promise<boolean> {
+    // Si solo actualizamos el estado, usamos el RPC para evitar problemas de RLS
+    if (updates.status && Object.keys(updates).length === 1) {
+      const { error } = await this.supabase.rpc('update_order_status', {
+        p_order_id: orderId,
+        p_status: updates.status
+      });
+      if (!error) return true;
+      console.warn('RPC update_order_status failed, falling back to direct update:', error.message);
+    }
+
     const { error } = await this.supabase
       .from('orders')
       .update(updates)

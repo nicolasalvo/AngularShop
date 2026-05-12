@@ -18,6 +18,7 @@ export class AdminProductos implements OnInit {
   loading = true;
   showModal = false;
   saving = false;
+  editingId: string | null = null;
 
   newProduct: Omit<Product, 'id' | 'category'> = {
     name: '',
@@ -69,12 +70,33 @@ export class AdminProductos implements OnInit {
   }
 
   openModal() {
+    this.editingId = null;
     this.showModal = true;
     this.resetForm();
   }
 
+  openEditModal(product: Product) {
+    this.editingId = product.id;
+    this.newProduct = {
+      name: product.name,
+      slug: product.slug,
+      description: product.description,
+      price: product.price,
+      stock: product.stock,
+      brand: product.brand,
+      sizes: [...product.sizes],
+      image_url: product.image_url,
+      is_active: product.is_active,
+      category_id: product.category_id || ''
+    };
+    this.imagePreview = product.image_url;
+    this.showModal = true;
+    this.cdr.detectChanges();
+  }
+
   closeModal() {
     this.showModal = false;
+    this.editingId = null;
   }
 
   resetForm() {
@@ -136,18 +158,42 @@ export class AdminProductos implements OnInit {
       }
 
       // 2. Guardar producto
-      const result = await this.productService.addProduct(this.newProduct);
-      if (result) {
-        this.closeModal();
-        await this.loadData();
+      if (this.editingId) {
+        const success = await this.productService.updateProduct(this.editingId, this.newProduct as Product);
+        if (success) {
+          this.closeModal();
+          await this.loadData();
+          alert('Producto actualizado con éxito');
+        } else {
+          alert('Error al actualizar el producto.');
+        }
       } else {
-        alert('Error al guardar el producto.');
+        const result = await this.productService.addProduct(this.newProduct);
+        if (result) {
+          this.closeModal();
+          await this.loadData();
+          alert('Producto creado con éxito');
+        } else {
+          alert('Error al guardar el producto.');
+        }
       }
     } catch (error) {
       console.error('Error in saveProduct:', error);
       alert('Ocurrió un error inesperado.');
     } finally {
       this.saving = false;
+    }
+  }
+
+  async deleteProduct(id: string) {
+    if (confirm('¿Estás seguro de que quieres eliminar este producto?')) {
+      const success = await this.productService.deleteProduct(id);
+      if (success) {
+        await this.loadData();
+        alert('Producto eliminado con éxito');
+      } else {
+        alert('Error al eliminar el producto');
+      }
     }
   }
 

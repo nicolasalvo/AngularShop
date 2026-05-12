@@ -15,6 +15,8 @@ export class PedidosComponent implements OnInit {
   myOrders: Order[] = [];
   loading = true;
 
+  expandedOrderId: string | null = null;
+
   async ngOnInit() {
     try {
       this.myOrders = await this.orderService.getUserOrders();
@@ -22,5 +24,10 @@ export class PedidosComponent implements OnInit {
       this.loading = false;
       this.cdr.detectChanges();
     }
+  }
+
+  toggleOrder(orderId: string) {
+    this.expandedOrderId = this.expandedOrderId === orderId ? null : orderId;
+    this.cdr.detectChanges();
   }
 }

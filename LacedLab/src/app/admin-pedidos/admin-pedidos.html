@@ -14,7 +14,6 @@
             <tr class="border-b border-white/5 bg-white/[0.02]">
               <th class="px-8 py-6 text-[10px] font-black text-white/30 uppercase tracking-widest">ID Pedido</th>
               <th class="px-8 py-6 text-[10px] font-black text-white/30 uppercase tracking-widest">Fecha</th>
-              <th class="px-8 py-6 text-[10px] font-black text-white/30 uppercase tracking-widest">Cliente</th>
               <th class="px-8 py-6 text-[10px] font-black text-white/30 uppercase tracking-widest">Total</th>
               <th class="px-8 py-6 text-[10px] font-black text-white/30 uppercase tracking-widest">Estado</th>
               <th class="px-8 py-6 text-[10px] font-black text-white/30 uppercase tracking-widest text-right">Acciones</th>
@@ -26,7 +25,6 @@
                 <tr class="animate-pulse border-b border-white/5">
                   <td class="px-8 py-6"><div class="h-6 w-20 bg-white/5 rounded-lg"></div></td>
                   <td class="px-8 py-6"><div class="h-6 w-24 bg-white/5 rounded-lg"></div></td>
-                  <td class="px-8 py-6"><div class="h-6 w-32 bg-white/5 rounded-lg"></div></td>
                   <td class="px-8 py-6"><div class="h-6 w-16 bg-white/5 rounded-lg"></div></td>
                   <td class="px-8 py-6"><div class="h-6 w-24 bg-white/5 rounded-lg"></div></td>
                   <td class="px-8 py-6 text-right"><div class="h-10 w-24 bg-white/5 rounded-full ml-auto"></div></td>
@@ -39,20 +37,17 @@
                     <span class="text-xs font-bold text-white font-outfit uppercase tracking-tighter">#{{ order.id.split('-')[0] }}</span>
                   </td>
                   <td class="px-8 py-6 text-sm text-white/50">{{ order.created_at | date:'dd/MM/yyyy HH:mm' }}</td>
-                  <td class="px-8 py-6 text-sm font-bold text-white">
-                    <div class="flex flex-col">
-                      <span class="truncate max-w-[120px]">{{ (order as any).user_name || order.user_id }}</span>
-                    </div>
-                  </td>
                   <td class="px-8 py-6 text-sm font-black text-[#FF5C00] tracking-tighter">{{ order.total_amount | currency:'EUR' }}</td>
                   <td class="px-8 py-6">
                     <span [ngClass]="{
                       'text-green-500 bg-green-500/10 border-green-500/20': order.status === 'delivered',
                       'text-orange-500 bg-orange-500/10 border-orange-500/20': order.status === 'pending',
+                      'text-indigo-500 bg-indigo-500/10 border-indigo-500/20': order.status === 'confirmed',
                       'text-blue-500 bg-blue-500/10 border-blue-500/20': order.status === 'shipped',
                       'text-red-500 bg-red-500/10 border-red-500/20': order.status === 'cancelled'
                     }" class="text-[9px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full border">
                       {{ order.status === 'pending' ? 'Pendiente' : 
+                         order.status === 'confirmed' ? 'Confirmado' : 
                          order.status === 'shipped' ? 'Enviado' : 
                          order.status === 'delivered' ? 'Completado' : 
                          order.status === 'cancelled' ? 'Cancelado' : order.status }}
@@ -97,7 +92,7 @@
           <div>
             <label class="text-[10px] font-black text-white/30 uppercase tracking-widest mb-3 block">Estado del Pedido</label>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              @for (status of ['pending', 'Enviado', 'Completado', 'Cancelado']; track status) {
+              @for (status of ['pending', 'shipped', 'delivered', 'cancelled']; track status) {
                 <button 
                   (click)="selectedOrder.status = status"
                   [class.bg-[#FF5C00]]="selectedOrder.status === status"
@@ -106,7 +101,10 @@
                   [class.text-white/40]="selectedOrder.status !== status"
                   class="py-3 rounded-xl text-[9px] font-black uppercase tracking-widest border border-white/5 transition-all"
                 >
-                  {{ status === 'pending' ? 'Pendiente' : status }}
+                  {{ status === 'pending' ? 'Pendiente' : 
+                     status === 'shipped' ? 'Enviado' : 
+                     status === 'delivered' ? 'Completado' : 
+                     status === 'cancelled' ? 'Cancelado' : status }}
                 </button>
               }
             </div>

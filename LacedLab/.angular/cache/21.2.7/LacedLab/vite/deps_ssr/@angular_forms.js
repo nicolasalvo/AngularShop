@@ -1,8 +1,7 @@
 import { createRequire } from 'module';const require = createRequire(import.meta.url);
-import "./chunk-76N4L6JE.js";
 import {
   getDOM
-} from "./chunk-KZQ5CJRM.js";
+} from "./chunk-XGQOD4GO.js";
 import {
   ApplicationRef,
   ChangeDetectorRef,

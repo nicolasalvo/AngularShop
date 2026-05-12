@@ -95,17 +95,85 @@ export class ProductService {
 
   async addProduct(product: Omit<Product, 'id' | 'category'>): Promise<Product | null> {
     const { data, error } = await this.supabase
-      .from('products')
-      .insert([product])
-      .select()
-      .single();
+      .rpc('insert_product', {
+        p_name: product.name,
+        p_price: product.price,
+        p_category_id: product.category_id,
+        p_description: product.description,
+        p_stock: product.stock,
+        p_brand: product.brand,
+        p_sizes: product.sizes,
+        p_image_url: product.image_url
+      });
 
     if (error) {
-      console.error('Error adding product:', error.message);
-      return null;
+      console.error('Error adding product via RPC:', error.message);
+      // Fallback a inserción directa si el RPC falla
+      const { data: directData, error: directError } = await this.supabase
+        .from('products')
+        .insert([product])
+        .select()
+        .single();
+        
+      if (directError) {
+        console.error('Error adding product directly:', directError.message);
+        return null;
+      }
+      return directData as Product;
     }
 
     return data as Product;
+  }
+
+  async updateProduct(id: string, product: Partial<Product>): Promise<boolean> {
+    const { error } = await this.supabase
+      .rpc('update_product', {
+        p_id: id,
+        p_name: product.name,
+        p_description: product.description,
+        p_price: product.price,
+        p_stock: product.stock,
+        p_brand: product.brand,
+        p_category_id: product.category_id,
+        p_sizes: product.sizes,
+        p_image_url: product.image_url,
+        p_is_active: product.is_active
+      });
+
+    if (error) {
+      console.error('Error updating product via RPC:', error.message);
+      // Fallback a update directo
+      const { error: directError } = await this.supabase
+        .from('products')
+        .update(product)
+        .eq('id', id);
+
+      if (directError) {
+        console.error('Error updating product directly:', directError.message);
+        return false;
+      }
+    }
+    return true;
+  }
+
+  async deleteProduct(id: string): Promise<boolean> {
+    // Usamos soft delete via RPC si existe
+    const { error } = await this.supabase.rpc('soft_delete_product', { product_id: id });
+
+    if (error) {
+      console.error('Error deleting product via RPC:', error.message);
+      // Fallback a borrado físico o desactivación manual
+      const { error: directError } = await this.supabase
+        .from('products')
+        .update({ is_active: false })
+        .eq('id', id);
+
+      if (directError) {
+        console.error('Error deleting product directly:', directError.message);
+        return false;
+      }
+    }
+    return true;
   }
 
   async uploadImage(file: File): Promise<string | null> {

@@ -9,7 +9,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 @Component({
   selector: 'app-checkout',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [CommonModule, FormsModule],
   templateUrl: './checkout.component.html',
 })
 export class CheckoutComponent {
