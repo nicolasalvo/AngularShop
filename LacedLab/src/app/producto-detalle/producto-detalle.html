@@ -6,7 +6,6 @@
         <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#FF5C00]"></div>
       </div>
     } @else if (product) {
-      <!-- Breadcrumbs -->
       <nav class="flex mb-8 text-[10px] font-black uppercase tracking-widest text-white/30">
         <a routerLink="/inicio" class="hover:text-white transition-colors">Inicio</a>
         <span class="mx-3">/</span>
@@ -16,9 +15,7 @@
       </nav>
 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-20">
-        <!-- Image Section -->
         <div class="relative group flex items-center justify-center">
-          <!-- Glow effect behind the shoe -->
           <div class="absolute inset-0 bg-[#FF5C00]/10 rounded-full blur-[100px] opacity-0 group-hover:opacity-100 transition-opacity duration-1000"></div>
           
           <div class="relative w-full transform transition-transform duration-700 group-hover:scale-105 group-hover:-rotate-3">
@@ -32,7 +29,6 @@
           </div>
         </div>
 
-        <!-- Info Section -->
         <div class="flex flex-col">
           <p class="text-[10px] font-black text-[#FF5C00] uppercase tracking-[0.3em] mb-4">{{ product.brand }}</p>
           <h1 class="text-6xl font-black text-white tracking-tighter uppercase mb-6 font-outfit leading-tight">{{ product.name }}</h1>
@@ -49,7 +45,6 @@
             {{ product.description || 'Sin descripción disponible.' }}
           </p>
 
-          <!-- Size Selection -->
           <div class="mb-12">
             <div class="flex justify-between items-center mb-6">
               <span class="text-[10px] font-black text-white/30 uppercase tracking-[0.2em]">Seleccionar Talla — {{ selectedSize || '...' }}</span>
@@ -78,7 +73,6 @@
             </div>
           </div>
 
-          <!-- Add to Cart -->
           <div class="flex flex-col gap-6">
             <div class="flex gap-4">
               @if (selectedSize && getProductQuantity(product.id, selectedSize) > 0) {

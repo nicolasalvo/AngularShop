@@ -18,13 +18,11 @@ export class CartService {
   private cartItems = new BehaviorSubject<CartItem[]>([]);
   cartItems$ = this.cartItems.asObservable();
 
-  // Observable para el total de items en la cesta
   totalItems$ = new BehaviorSubject<number>(0);
 
   constructor(private authService: AuthService) {
     this.supabase = inject(SupabaseService).client;
 
-    // Escuchar cambios de autenticación para cargar/limpiar la cesta
     this.supabase.auth.onAuthStateChange((event, session) => {
       console.log('CartService: Auth event:', event);
       if (session?.user) {
@@ -112,7 +110,6 @@ export class CartService {
   async removeFromCart(productId: string, size?: string) {
     const user = this.authService.currentUser();
     
-    // Actualizar localmente
     const newItems = this.cartItems.value.filter(item => 
       !(item.id === productId && item.selectedSize === size)
     );

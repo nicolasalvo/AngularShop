@@ -69,10 +69,8 @@ export class OrderService {
   async getAllOrders(): Promise<Order[]> {
     console.log('OrderService: Fetching all orders...');
     
-    // 1. Intentamos el RPC primero por velocidad y nombres de usuario
     const { data, error } = await this.supabase.rpc('get_all_orders');
 
-    // Si el RPC funcionó y trajo los artículos (order_items), mapeamos y devolvemos
     if (!error && data && data.length > 0 && data[0].order_items) {
       return (data as any[]).map(order => ({
         ...order,
@@ -81,7 +79,6 @@ export class OrderService {
       })) as Order[];
     }
 
-    // 2. Si el RPC falló o los artículos vienen vacíos, usamos la consulta directa a las tablas
     console.warn('Usando consulta directa para asegurar carga de artículos...');
     const { data: directData, error: directError } = await this.supabase
       .from('orders')
@@ -110,7 +107,6 @@ export class OrderService {
     const user = this.authService.currentUser();
     if (!user || items.length === 0) return null;
 
-    // 1. Crear el pedido
     const { data: order, error: orderError } = await this.supabase
       .from('orders')
       .insert([{
@@ -128,7 +124,6 @@ export class OrderService {
       return null;
     }
 
-    // 2. Crear los items del pedido
     const orderItems = items.map(item => ({
       order_id: order.id,
       product_id: item.id,
@@ -150,7 +145,6 @@ export class OrderService {
   }
 
   async updateOrder(orderId: string, updates: Partial<Order>): Promise<boolean> {
-    // Si solo actualizamos el estado, usamos el RPC para evitar problemas de RLS
     if (updates.status && Object.keys(updates).length === 1) {
       const { error } = await this.supabase.rpc('update_order_status', {
         p_order_id: orderId,

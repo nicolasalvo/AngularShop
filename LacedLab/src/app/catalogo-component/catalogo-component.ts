@@ -47,7 +47,6 @@ export class CatalogoComponent implements OnInit {
     if (itemsInCart.length === 1) {
       this.decrementQuantity(product, itemsInCart[0]);
     } else {
-      // Si hay varias tallas, abrimos el selector para que elija cuál quitar
       this.selectedProductId = product.id;
     }
   }
@@ -72,12 +71,10 @@ export class CatalogoComponent implements OnInit {
 
   async ngOnInit() {
     try {
-      console.log('CatalogoComponent: Fetching all products...');
       const data = await this.productService.getProducts();
       this.allProducts = data;
       this.filteredProducts = [...data];
       
-      // Extraer marcas únicas
       const uniqueBrands = [...new Set(data.map(p => p.brand))];
       this.brands = ['Todas', ...uniqueBrands];
 
@@ -85,7 +82,6 @@ export class CatalogoComponent implements OnInit {
       this.applyFilters();
       this.cdr.detectChanges();
     } catch (err) {
-      console.error('CatalogoComponent: Error in ngOnInit:', err);
       this.loading = false;
       this.cdr.detectChanges();
     }
@@ -93,20 +89,17 @@ export class CatalogoComponent implements OnInit {
 
   applyFilters() {
     let results = this.allProducts.filter(product => {
-      const matchesSearch = product.name.toLowerCase().includes(this.searchTerm.toLowerCase()) || 
-                           product.brand.toLowerCase().includes(this.searchTerm.toLowerCase());
+      const matchesSearch = product.name.toLowerCase().includes(this.searchTerm.toLowerCase()) || product.brand.toLowerCase().includes(this.searchTerm.toLowerCase());
       const matchesBrand = this.selectedBrand === 'Todas' || product.brand === this.selectedBrand;
       
       return matchesSearch && matchesBrand;
     });
 
-    // Ordenación
     if (this.sortBy === 'price-asc') {
       results.sort((a, b) => a.price - b.price);
     } else if (this.sortBy === 'price-desc') {
       results.sort((a, b) => b.price - a.price);
     } else {
-      // 'newest' ya viene por defecto del servicio si no cambiamos el orden original
     }
 
     this.filteredProducts = results;

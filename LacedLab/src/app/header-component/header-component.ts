@@ -21,12 +21,10 @@ export class HeaderComponent {
   showCart = signal(false);
   isCheckoutLoading = signal(false);
 
-  // Usamos computed para crear una señal derivada que nos dice si el usuario está logueado
   isLoggedIn = computed(() => this.authService.currentUser() !== null);
   isAdmin = this.authService.isAdmin;
   user = this.authService.currentUser;
 
-  // Convertimos los observables a señales
   cartCount = toSignal(this.cartService.totalItems$, { initialValue: 0 });
   cartItems = toSignal(this.cartService.cartItems$, { initialValue: [] });
 

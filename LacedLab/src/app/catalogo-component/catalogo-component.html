@@ -107,16 +107,14 @@
                      <div class="p-8 flex flex-col flex-1">
                 <div class="flex justify-between items-start mb-2">
                   <p class="text-[10px] font-black text-[#FF5C00] uppercase tracking-[0.2em]">{{ product.brand }}</p>
-                  <span class="text-[9px] font-black text-white/30 uppercase tracking-[0.3em] border border-white/10 px-2 py-0.5 rounded-full">New</span>
                 </div>
                 
                 <h4 [routerLink]="['/producto', product.slug]" class="text-xl font-bold text-white leading-snug mb-6 group-hover:text-[#FF5C00] transition-colors font-outfit line-clamp-2 cursor-pointer">{{ product.name }}</h4>
                 
-                <!-- Spacer para empujar el precio y el botón abajo -->
                 <div class="mt-auto pt-6 border-t border-white/5">
                   <div class="flex flex-col mb-6">
                     <span class="text-[9px] text-white/40 uppercase font-bold tracking-widest mb-1">Precio</span>
-                    <span class="text-2xl font-black text-white tracking-tighter">{{ product.price | currency:'EUR':'symbol':'1.0-0' }}</span>
+                    <span class="text-2xl font-black text-white tracking-tighter">{{ product.price }} €</span>
                   </div>
 
                   @if (selectedProductId === product.id) {

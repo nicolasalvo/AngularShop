@@ -1,12 +1,10 @@
 <div class="bg-[#0a0a0a] min-h-screen px-8 py-20">
   <div class="max-w-7xl mx-auto">
-    <!-- Header -->
     <div class="mb-16 animate-fade-in-up">
       <h1 class="text-6xl font-black text-white tracking-tighter uppercase font-outfit">Control de <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FF5C00] to-[#ff8c00]">Pedidos</span></h1>
       <p class="text-white/40 mt-2 font-medium">Monitorización de transacciones y estados de envío en tiempo real.</p>
     </div>
 
-    <!-- Table Container -->
     <div class="bg-[#121212]/80 backdrop-blur-xl rounded-[40px] border border-white/5 overflow-hidden shadow-2xl animate-fade-in-up" style="animation-delay: 0.1s;">
       <div class="overflow-x-auto">
         <table class="w-full text-left">
@@ -70,13 +68,11 @@
     </div>
   </div>
 
-  <!-- Edit Modal -->
   @if (showModal && selectedOrder) {
     <div class="fixed inset-0 z-[100] flex items-center justify-center p-6">
       <div class="absolute inset-0 bg-black/90 backdrop-blur-md animate-fade-in" (click)="closeModal()"></div>
       
       <div class="relative w-full max-w-2xl bg-[#121212] border border-white/10 rounded-[40px] overflow-hidden shadow-2xl animate-scale-up">
-        <!-- Modal Header -->
         <div class="p-8 border-b border-white/5 flex items-center justify-between bg-white/[0.02]">
           <div>
             <h2 class="text-3xl font-black text-white uppercase tracking-tighter font-outfit">Editar <span class="text-[#FF5C00]">Pedido</span></h2>
@@ -88,7 +84,6 @@
         </div>
 
         <div class="p-10 space-y-8">
-          <!-- Status Field -->
           <div>
             <label class="text-[10px] font-black text-white/30 uppercase tracking-widest mb-3 block">Estado del Pedido</label>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -110,7 +105,6 @@
             </div>
           </div>
 
-          <!-- Address Field -->
           <div>
             <label class="text-[10px] font-black text-white/30 uppercase tracking-widest mb-3 block">Dirección de Envío</label>
             <textarea 
@@ -120,7 +114,6 @@
             ></textarea>
           </div>
 
-          <!-- Notes Field -->
           <div>
             <label class="text-[10px] font-black text-white/30 uppercase tracking-widest mb-3 block">Notas del Pedido</label>
             <textarea 
@@ -131,7 +124,6 @@
             ></textarea>
           </div>
 
-          <!-- Items Summary -->
           <div>
             <label class="text-[10px] font-black text-white/30 uppercase tracking-widest mb-3 block">Artículos ({{ selectedOrder.items?.length || 0 }})</label>
             <div class="max-h-32 overflow-y-auto space-y-3 pr-2 scrollbar-thin">
@@ -145,7 +137,6 @@
           </div>
         </div>
 
-        <!-- Modal Footer -->
         <div class="p-8 border-t border-white/5 bg-white/[0.02] flex gap-4">
           <button 
             (click)="closeModal()"

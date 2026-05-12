@@ -20,15 +20,11 @@ export class InicioComponent implements OnInit {
 
   async ngOnInit() {
     try {
-      console.log('InicioComponent: Fetching products...');
       const data = await this.productService.getFeaturedProducts();
-      console.log('InicioComponent: Data received:', data);
       this.products = data;
       this.loading = false;
-      this.cdr.detectChanges(); // Forzamos la detección de cambios
-      console.log('InicioComponent: Loading set to false and detectChanges called');
+      this.cdr.detectChanges();
     } catch (err) {
-      console.error('InicioComponent: Error in ngOnInit:', err);
       this.loading = false;
       this.cdr.detectChanges();
     }

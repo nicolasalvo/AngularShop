@@ -34,7 +34,7 @@ export class AdminPedidos implements OnInit {
   }
 
   openEditModal(order: Order) {
-    this.selectedOrder = JSON.parse(JSON.stringify(order)); // Clonar para no editar directamente en la lista
+    this.selectedOrder = JSON.parse(JSON.stringify(order));
     this.showModal = true;
   }
 
@@ -55,11 +55,11 @@ export class AdminPedidos implements OnInit {
       });
       
       if (success) {
-        alert('Pedido actualizado con éxito');
+        console.log('Pedido actualizado con éxito');
         this.closeModal();
         await this.loadOrders();
       } else {
-        alert('Error al actualizar el pedido');
+        console.log('Error al actualizar el pedido');
       }
     } finally {
       this.isSaving = false;

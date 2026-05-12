@@ -108,7 +108,6 @@ export class ProductService {
 
     if (error) {
       console.error('Error adding product via RPC:', error.message);
-      // Fallback a inserción directa si el RPC falla
       const { data: directData, error: directError } = await this.supabase
         .from('products')
         .insert([product])
@@ -142,7 +141,6 @@ export class ProductService {
 
     if (error) {
       console.error('Error updating product via RPC:', error.message);
-      // Fallback a update directo
       const { error: directError } = await this.supabase
         .from('products')
         .update(product)
@@ -157,12 +155,10 @@ export class ProductService {
   }
 
   async deleteProduct(id: string): Promise<boolean> {
-    // Usamos soft delete via RPC si existe
     const { error } = await this.supabase.rpc('soft_delete_product', { product_id: id });
 
     if (error) {
       console.error('Error deleting product via RPC:', error.message);
-      // Fallback a borrado físico o desactivación manual
       const { error: directError } = await this.supabase
         .from('products')
         .update({ is_active: false })

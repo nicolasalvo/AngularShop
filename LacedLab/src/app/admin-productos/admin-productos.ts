@@ -145,7 +145,6 @@ export class AdminProductos implements OnInit {
 
     this.saving = true;
     try {
-      // 1. Subir imagen si hay un archivo seleccionado
       if (this.imageFile) {
         const publicUrl = await this.productService.uploadImage(this.imageFile);
         if (publicUrl) {
@@ -157,7 +156,6 @@ export class AdminProductos implements OnInit {
         }
       }
 
-      // 2. Guardar producto
       if (this.editingId) {
         const success = await this.productService.updateProduct(this.editingId, this.newProduct as Product);
         if (success) {
@@ -190,9 +188,9 @@ export class AdminProductos implements OnInit {
       const success = await this.productService.deleteProduct(id);
       if (success) {
         await this.loadData();
-        alert('Producto eliminado con éxito');
+        console.log('Producto eliminado con éxito');
       } else {
-        alert('Error al eliminar el producto');
+        console.log('Error al eliminar el producto');
       }
     }
   }

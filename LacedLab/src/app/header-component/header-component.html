@@ -82,13 +82,11 @@
   </div>
 </header>
 
-<!-- Cart Drawer -->
 @if (showCart()) {
   <div class="fixed inset-0 z-[100] overflow-hidden">
     <div class="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity" (click)="toggleCart()"></div>
     <div class="absolute inset-y-0 right-0 max-w-full flex">
       <div class="w-screen max-w-md bg-[#121212] border-l border-white/10 shadow-2xl flex flex-col animate-slide-in-right">
-        <!-- Cart Header -->
         <div class="p-8 border-b border-white/5 flex items-center justify-between">
           <h2 class="text-3xl font-black text-white uppercase tracking-tighter font-outfit">Tu <span class="text-[#FF5C00]">Carrito</span></h2>
           <button (click)="toggleCart()" class="p-2 text-white/50 hover:text-white transition-colors">
@@ -96,7 +94,6 @@
           </button>
         </div>
 
-        <!-- Cart Items -->
         <div class="flex-1 overflow-y-auto p-8 space-y-6">
           @if (cartItems().length === 0) {
             <div class="h-full flex flex-col items-center justify-center text-center opacity-30">
@@ -125,7 +122,6 @@
           }
         </div>
 
-        <!-- Cart Footer -->
         @if (cartItems().length > 0) {
           <div class="p-8 border-t border-white/5 bg-white/[0.02]">
             <div class="flex justify-between items-end mb-8">

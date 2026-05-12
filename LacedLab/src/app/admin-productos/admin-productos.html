@@ -1,6 +1,5 @@
 <div class="bg-[#0a0a0a] min-h-screen px-8 py-20">
   <div class="max-w-7xl mx-auto">
-    <!-- Header -->
     <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8 animate-fade-in-up">
       <div>
         <h1 class="text-6xl font-black text-white tracking-tighter uppercase font-outfit">Gestión de <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FF5C00] to-[#ff8c00]">Productos</span></h1>
@@ -14,7 +13,6 @@
       </button>
     </div>
 
-    <!-- Table Container -->
     <div class="bg-[#121212]/80 backdrop-blur-xl rounded-[40px] border border-white/5 overflow-hidden shadow-2xl animate-fade-in-up" style="animation-delay: 0.1s;">
       <div class="overflow-x-auto">
         <table class="w-full text-left">
@@ -86,7 +84,6 @@
     </div>
   </div>
 
-  <!-- Add Product Modal -->
   @if (showModal) {
     <div class="fixed inset-0 z-50 flex items-center justify-center p-4">
       <!-- Backdrop -->
@@ -103,7 +100,6 @@
           </div>
 
           <form (ngSubmit)="saveProduct()" #productForm="ngForm" class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <!-- Name & Slug -->
             <div class="space-y-6">
               <div>
                 <label class="text-[10px] font-black text-white/30 uppercase tracking-widest mb-2 block">Nombre del Producto *</label>
@@ -134,7 +130,6 @@
               </div>
             </div>
 
-            <!-- Meta & Image -->
             <div class="space-y-6">
               <div>
                 <label class="text-[10px] font-black text-white/30 uppercase tracking-widest mb-2 block">Marca *</label>
@@ -170,7 +165,6 @@
               <div class="space-y-4">
                 <label class="text-[10px] font-black text-white/30 uppercase tracking-widest block">Imagen del Producto *</label>
                 
-                <!-- Preview Area -->
                 <div class="w-full aspect-video rounded-3xl bg-white/5 border border-white/10 overflow-hidden flex items-center justify-center relative group">
                   @if (imagePreview || newProduct.image_url) {
                     <img [src]="imagePreview || newProduct.image_url" class="w-full h-full object-cover">
@@ -185,7 +179,6 @@
                   }
                 </div>
 
-                <!-- Input Options -->
                 <div class="grid grid-cols-1 gap-4">
                   <div>
                     <label class="text-[9px] font-black text-white/20 uppercase tracking-widest mb-2 block">Opción 1: Pegar URL</label>
